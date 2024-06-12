@@ -45,7 +45,6 @@ function url($id)
     
         $CASSIE = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
         $WANDA = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
-     ;
         curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $LOKI = @json_decode($CASSIE, true);
     
