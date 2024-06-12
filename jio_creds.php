@@ -141,10 +141,9 @@ function url($id)
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_POSTFIELDS, $JITENDRA_PRO_DEV_X_POST_X_KANGS);
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_HTTPHEADER, $JITENDRA_PRO_DEV_X_ROLEX);
-    
         $CASSIE = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
-        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JANE_FOSTER = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $LOKI = @json_decode($CASSIE, true);
     
         if (isset($LOKI['code'])) {
