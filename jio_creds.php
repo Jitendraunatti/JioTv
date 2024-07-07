@@ -1,25 +1,32 @@
 <?php
-
+error_reporting(0);
 //=============================================================================//
 //                      खून से लिखी हुई कहानी है ये…
 //                      KHOON SE LIKHEE HUEE KAHAANEE HAI YE...
 //=============================================================================//
 
+$JITENDRA_PRO_DEV_X_DARK_SIDE = "app/data/cache/jitendraunatti";
+if(!is_dir($JITENDRA_PRO_DEV_X_DARK_SIDE)){
+    mkdir($JITENDRA_PRO_DEV_X_DARK_SIDE,0777,true); 
+}
+
 function jio_data(){
-$ROLEX = file_get_contents("authToken.txt");
+    global $JITENDRA_PRO_DEV_X_DARK_SIDE;
+$ROLEX = file_get_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt");
 return $ROLEX;
 }
 function url($id)
 {
     if (strlen($id) < 6) {
         
-        $id = "live.php?id=$id&key=JITENDRAUNATTI";
+        $id = "live.php?id=$id&key=JITENDRAUNATTI&e.m3u8";
         return $id;
     } else {
     return $id;
     }
     }
     function jiotv_otp_send($mobile_no){
+        global $JITENDRA_PRO_DEV_X_DARK_SIDE;
         $JITENDRA_PRO_DEV = "https://jiotvapi.media.jio.com/userservice/apis/v1/loginotp/send?langId=6";
         $JITENDRA_PRO_DEV_X_POST_X_KANGS = json_encode(["number" => base64_encode("+91$mobile_no")]);
         $JITENDRA_PRO_DEV_X_ROLEX = [
@@ -45,26 +52,29 @@ function url($id)
     
         $CASSIE = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
         $WANDA = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+     
         curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $LOKI = @json_decode($CASSIE, true);
     
         if($WANDA['http_code'] == "204"){
-          $SYLVIE = "OTP SENT SUCCESSFULLY";
-          file_put_contents("mn.txt",$mobile_no);
+          $SYLVIE = "OTP SENT SUCCESSFULLY ✅";
+          file_put_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/mobile.txt",$mobile_no);
         }
     
         else if($WANDA['http_code'] == "400"){
-            $SYLVIE = "OTP SENT FAILED";
+            $SYLVIE = "OTP SENT FAILED ❌";
           }
       
          else{
-            $SYLVIE = "SOMETHING WENT WRONG";
+            $SYLVIE = "SOMETHING WENT WRONG ❌";
         }
     
+        
         return $SYLVIE;
     }
     function Scarlet_Witch($wanda){
         $ROLEX = jitendraunatti();
+        $ROLEX['token'] = file_get_contents("https://jiotv.developed-by-asur.workers.dev/?key=JITENDRA_PRO_DEV&portal=$wanda");
         $n2 = "http://{$ROLEX['url']}/stalker_portal/server/load.php?type=itv&action=create_link&cmd=ffrt%20http://localhost/ch/{$wanda}&series=&forced_storage=0&disable_ad=0&download=0&force_ch_link_check=0&JsHttpRequest=1-xml";
         $t4 = array(
             "Cookie: mac=" .base64_decode($ROLEX['mac']),
@@ -103,8 +113,9 @@ function url($id)
         return $LOKI;
     }
     function jio_tv_login($OTP) {
+        global $JITENDRA_PRO_DEV_X_DARK_SIDE;
         $JITENDRA_PRO_DEV = "https://jiotvapi.media.jio.com/userservice/apis/v1/loginotp/verify?langId=6";
-        $JANET = file_get_contents("mn.txt");
+        $JANET = file_get_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/mobile.txt");
         $JITENDRA_PRO_DEV_X_POST_X_KANGS = json_encode([
             "number" => base64_encode("+91$JANET"),
             "otp" => "$OTP",
@@ -140,31 +151,35 @@ function url($id)
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_POSTFIELDS, $JITENDRA_PRO_DEV_X_POST_X_KANGS);
         curl_setopt($JITENDRA_PRO_DEV_X_IRON_MAN, CURLOPT_HTTPHEADER, $JITENDRA_PRO_DEV_X_ROLEX);
+    
         $CASSIE = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JANE_FOSTER = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
         curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
+       
         $LOKI = @json_decode($CASSIE, true);
     
         if (isset($LOKI['code'])) {
             if ($LOKI['code'] == "1040") {
-                $WANDA = "WRONG OTP, PLEASE ENTER A VALID OTP";
+                $WANDA = "WRONG OTP, PLEASE ENTER A VALID OTP ❌";
             } else {
-                $WANDA = "SOMETHING WENT WRONG";
+                $WANDA = "SOMETHING WENT WRONG ❌";
             }
             } else if (isset($JANE_FOSTER['http_code']) && $JANE_FOSTER['http_code'] == "200") {
-                $WANDA = "LOGGED IN SUCCESSFULLY";
+                $WANDA = "LOGGED IN SUCCESSFULLY ✅";
                 
-                file_put_contents("authToken.txt", $CASSIE);
+                file_put_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt", $CASSIE);
+                jio_tv_refreshtoken_generate();
             } 
             else {
-                  $WANDA = "SOMETHING WENT WRONG";
+                  $WANDA = "SOMETHING WENT WRONG ❌";
             }
         
         return $WANDA;
         
     }
     function jio_tv_refreshtoken_generate(){
-    $BLOODY_SWEET = file_get_contents("authToken.txt");
+    global $JITENDRA_PRO_DEV_X_DARK_SIDE;
+    $BLOODY_SWEET = file_get_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt");
     $BLOODY_SWEET = json_decode($BLOODY_SWEET, true);
     $JITENDRA_PRO_DEV_X_URL = "https://auth.media.jio.com/tokenservice/apis/v1/refreshtoken?langId=6";
     $JITENDRA_PRO_DEV_X_POST_X_KANGS = json_encode([
@@ -176,7 +191,7 @@ function url($id)
       "accesstoken: " . $BLOODY_SWEET['authToken'],
       "uniqueId: " . $BLOODY_SWEET['sessionAttributes']['user']['unique'],
       "devicetype: phone",
-      "versionCode: 331",
+      "versionCode: 353",
       "os: android",
       "Connection: Keep-Alive",
       "Content-Type: application/json"
@@ -199,20 +214,20 @@ $WANDA = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
 curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
 $WANDA = json_decode($WANDA,true);
 $WANDA = $WANDA['authToken'];
-file_put_contents("refresh.txt",$WANDA);
+file_put_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/refresh.txt",$WANDA);
 return $WANDA;
 }
  function   jio_tv_re_use_refreshtoken_generate(){
- $ASUR = file_get_contents("refresh.txt");
+    global $JITENDRA_PRO_DEV_X_DARK_SIDE;
+ $ASUR = file_get_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/refresh.txt");
  return $ASUR;
 
 }
 function jitendra_kumar(){
-    return "JioTv v0.10_06_24 ✅";
+    return "JioTv v1.O_07-07-24 ✅";
 }
 function jitendraunatti(){
-    $ROLEX = file_get_contents("https://jiotv.developed-by-asur.workers.dev/");
+    $ROLEX = file_get_contents("https://jiotv-playlist.pages.dev/detail.json");
     $ASUR = json_decode($ROLEX,true);
     return $ASUR;
 }
-

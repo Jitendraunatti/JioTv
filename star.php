@@ -84,7 +84,7 @@ $ASUR = jitendraunatti();
 $fileContent = file_get_contents($ASUR['star']);
 
 $lines = explode("\n", $fileContent);
-
+if($ASUR['latest_script'] === jitendra_kumar()){
 foreach ($lines as $line) {
     if (strpos($line, "#EXTINF") === 0) {
         preg_match('/tvg-id="([^"]+)".*tvg-name="([^"]+)".*tvg-logo="([^"]+)".*group-title="([^"]+)",([^ ]+) (.*)/', $line, $matches);
@@ -103,7 +103,21 @@ foreach ($lines as $line) {
         echo '</div>';
           }
     }
-
+}
+else
+{
+    echo '
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9;">
+        <div style="text-align: center; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <h1 style="color: #333; font-family: Arial, sans-serif; margin-bottom: 20px;">🆕 UPDATE IS AVAILABLE NOW</h1>
+            <p style="font-size: 18px; color: #555; margin-bottom: 30px;">A new version of the script is now available. Click the button below to download the latest version.</p>
+            <a href="https://github.com/Jitendraunatti?tab=repositories" style="display: inline-block; background-color: #28a745; color: #ffffff; padding: 10px 20px; font-size: 18px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;">
+                Download Now
+            </a>
+        </div>
+    </div>
+    ';
+}
 ?>
 
 </div>

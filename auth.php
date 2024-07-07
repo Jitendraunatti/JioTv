@@ -1,7 +1,7 @@
 <?php
 
 include "jio_creds.php";
-
+error_reporting(0);
 function badass($JITENDRA_PRO_DEV_URL){
 $BLOODY_SWEET = jio_data();
 $BLOODY_SWEET = json_decode($BLOODY_SWEET, true);
@@ -20,32 +20,32 @@ $COOKIE = @$_REQUEST['ck'];
 $id = @$_REQUEST['id'];
 $COOKIES = str_replace(["PLUS", "EQUALS"], ["+", "="], $COOKIE);
 $COOKIES = base64_decode(strrev($COOKIES));
-    $JITENDRA_PRO_DEV_X_ROLEX = array();
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "userid: " . $user_id;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "x-platform: android";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "appname: RJIL_JioTV";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "Cookie:" . $COOKIES;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "accesstoken: " . jio_tv_re_use_refreshtoken_generate();
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "appkey: NzNiMDhlYcQyNjJm";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "channel_id: $id";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "crmid: " . $subscriberId;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "deviceId: " . $device_id;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "devicetype: phone";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "isott: true";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "languageId: 6";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "lbcookie: 1";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "os: android";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "osVersion: 13";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "srno: 2406022755009";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "ssotoken: " . $ssoToken;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "subscriberId: " . $subscriberId;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "uniqueId: " . $uniqueId;
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "User-Agent: plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.7";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "usergroup: tvYR7NSNn7rymo3F";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "versionCode: 349";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "Origin: https://www.jiocinema.com";
-    $JITENDRA_PRO_DEV_X_ROLEX[] = "Referer: https://www.jiocinema.com/";
-
+    $JITENDRA_PRO_DEV_X_ROLEX = array(
+    "userid: " . $user_id,
+    "x-platform: android",
+    "appname: RJIL_JioTV",
+    "Cookie:" . $COOKIES,
+    "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
+    "appkey: NzNiMDhlYcQyNjJm",
+    "channel_id: $id",
+    "crmid: " . $subscriberId,
+    "deviceId: " . $device_id,
+    "devicetype: phone",
+    "isott: true",
+    "languageId: 6",
+    "lbcookie: 1",
+    "os: android",
+    "osVersion: 13",
+    "srno: 2406022755009",
+    "ssotoken: " . $ssoToken,
+    "subscriberId: " . $subscriberId,
+    "uniqueId: " . $uniqueId,
+    "User-Agent: plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.7",
+    "usergroup: tvYR7NSNn7rymo3F",
+    "versionCode: 353",
+    "Origin: https://www.jiocinema.com",
+    "Referer: https://www.jiocinema.com/",
+     );
     $JITENDRA_PRO_DEV_X_IRON_MAN = curl_init();
     curl_setopt_array($JITENDRA_PRO_DEV_X_IRON_MAN, [
         CURLOPT_URL => $JITENDRA_PRO_DEV_URL,
@@ -100,6 +100,19 @@ if (!empty($_REQUEST["ts"]) && !empty($_REQUEST["ck"])) {
     header("Accept-Ranges: bytes");
     
     $JITENDRA_PRO_DEV_URL = 'https://jiotvmblive.cdn.jio.com/' . $_REQUEST["ts"];
+    $THANOS = badass($JITENDRA_PRO_DEV_URL);
+    echo $THANOS;
+
+}
+if (!empty($_REQUEST["tss"]) && !empty($_REQUEST["ck"])) {
+    header("Content-Type: video/mp2t");
+    header("Connection: keep-alive");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Expose-Headers: Content-Length,Content-Range");
+    header("Access-Control-Allow-Headers: Range");
+    header("Accept-Ranges: bytes");
+    
+    $JITENDRA_PRO_DEV_URL = $_REQUEST["tss"];
     $THANOS = badass($JITENDRA_PRO_DEV_URL);
     echo $THANOS;
 
