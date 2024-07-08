@@ -87,6 +87,9 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
         $WANDA_JSON = json_decode($WANDA, true);
         $SCARLET_WITCH_SONY = explode("&", $WANDA_JSON['result']);
         $CHANNELS_SONY = explode("/", $SCARLET_WITCH_SONY[0]);
+        $JITENDRA_PRO_DEV_X_THOR = explode("hdnea",$SCARLET_WITCH_SONY[0]);
+        $JITENDRA_PRO_DEV_X_THOR[0] = "__hdnea".$JITENDRA_PRO_DEV_X_THOR[1];
+
        
     
         if ($WANDA_JSON['code'] == 419 && $WANDA_JSON['message'] === "Token is expired") 
@@ -186,10 +189,53 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
 
                 $LEO = str_replace($DEVARA, $LEO_THALAPATHY, $DOCTOR_STRANGE);
                 echo $LEO;
-            } 
-            
+            }
+            else if($CHANNELS_SONY[3] === $CHANNELS_SONY[5])
+            {
+                file_get_contents("https://jiotv.developed-by-asur.workers.dev/?key=JITENDRA_PRO_DEV&jiotv=$id");
+                $HEADERS = [
+                    
+                                    'http' => [
+                            'method' => 'GET',
+                            'header' => "Cookie: $JITENDRA_PRO_DEV_X_THOR[0]\r\n" .
+                                        "os: android\r\n" .
+                                        "appname: RJIL_JioTV\r\n" .
+                                        "subscriberid: $subscriberId\r\n" .
+                                        "accesstoken: " . jio_tv_re_use_refreshtoken_generate() . "\r\n" .
+                                        "deviceid: $device_id\r\n" .
+                                        "userid: ril$subscriberId\r\n" .
+                                        "versioncode: 353\r\n" .
+                                        "devicetype: phone\r\n" .
+                                        "crmid: $subscriberId\r\n" .
+                                        "osversion: 13\r\n" .
+                                        "srno: 240707471030\r\n" .
+                                        "usergroup: tvYR7NSNn7rymo3F\r\n" .
+                                        "x-platform: android\r\n" .
+                                        "uniqueid: $uniqueId\r\n" .
+                                        "ssotoken: $ssoToken\r\n" .
+                                        "channelid: $id\r\n" .
+                                        "priority: u=1, i\r\n" .
+                                        "User-Agent: plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.7",
+                        ],
+    
+    
+    
+                ];
+                $JITENDRA_PRO_DEV_X_BADASS = str_replace("?minrate=80000","",$SCARLET_WITCH_SONY[0]);
+                $COOKIE = strrev(base64_encode($JITENDRA_PRO_DEV_X_THOR[0]));
+                $COOKIE = str_replace(["+", "="], ["PLUS", "EQUALS"], $COOKIE);
+                $HEADERS_MIXTURE = stream_context_create($HEADERS);
+                $DOCTOR_STRANGE = file_get_contents($JITENDRA_PRO_DEV_X_BADASS, false, $HEADERS_MIXTURE);
+                $CHANNELS_SONYY = explode("_", $CHANNELS_SONY[5]);
+                $DEVARA = [
+                   "$CHANNELS_SONY[3]",
+                   "#EXTM3U",
+                ];
+                eval(str_rot13(gzinflate(str_rot13(base64_decode('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')))));
 
-               
+                $LEO = str_replace($DEVARA, $LEO, $DOCTOR_STRANGE);
+                echo $LEO;
+            }   
             else
             {
                 echo video();
@@ -242,7 +288,8 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
     
                 $LEO = str_replace($DEVARA, $LEO_THALAPATHY, $DOCTOR_STRANGE);
                 echo $LEO;
-            }   
+        }  
+       
         else
         {
             echo video();
