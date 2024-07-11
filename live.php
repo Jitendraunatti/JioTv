@@ -159,7 +159,7 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
                                     "subscriberid: $subscriberId\r\n" .
                                     "accesstoken: " . jio_tv_re_use_refreshtoken_generate() . "\r\n" .
                                     "deviceid: $device_id\r\n" .
-                                    "userid: ril$subscriberId\r\n" .
+                                    "userid: ril" . $subscriberId . "\r\n" .
                                     "versioncode: 353\r\n" .
                                     "devicetype: phone\r\n" .
                                     "crmid: $subscriberId\r\n" .
@@ -203,7 +203,7 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
                                         "subscriberid: $subscriberId\r\n" .
                                         "accesstoken: " . jio_tv_re_use_refreshtoken_generate() . "\r\n" .
                                         "deviceid: $device_id\r\n" .
-                                        "userid: ril$subscriberId\r\n" .
+                                        "userid: ril" . $subscriberId . "\r\n" .
                                         "versioncode: 353\r\n" .
                                         "devicetype: phone\r\n" .
                                         "crmid: $subscriberId\r\n" .
@@ -256,7 +256,7 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
                                         "subscriberid: $subscriberId\r\n" .
                                         "accesstoken: " . jio_tv_re_use_refreshtoken_generate() . "\r\n" .
                                         "deviceid: $device_id\r\n" .
-                                        "userid: ril$subscriberId\r\n" .
+                                        "userid: ril" . $subscriberId . "\r\n" .
                                         "versioncode: 353\r\n" .
                                         "devicetype: phone\r\n" .
                                         "crmid: $subscriberId\r\n" .
