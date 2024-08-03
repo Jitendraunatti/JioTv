@@ -295,8 +295,8 @@ function jitendra_pro_dev_x_get_true($JITENDRA_PRO_DEV_X_URL,$id)
         ]);
 
          $JITENDRA_PRO_DEV_X_LOKI = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
-        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_STATUS = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $pattern = '/^Set-Cookie:\s*(.*)$/mi';
         preg_match_all($pattern, $JITENDRA_PRO_DEV_X_LOKI , $matches);
         $checker = $matches;
@@ -428,8 +428,8 @@ function jitendra_pro_dev_x_rolex($JITENDRA_PRO_DEV_X_URL,$cid,$ck)
         ]);
 
          $JITENDRA_PRO_DEV_X_LOKI = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
-        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_STATUS = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_JSON_ENCODE = array(
           "JITENDRAUNATTI" => array(
               "data" => $JITENDRA_PRO_DEV_X_LOKI,
@@ -457,8 +457,8 @@ function jitendra_pro_dev_x_post_false($JITENDRA_PRO_DEV_X_URL,$JITENDRA_PRO_DEV
         ]);
 
          $JITENDRA_PRO_DEV_X_LOKI = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
-        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_STATUS = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_JSON_ENCODE = array(
           "JITENDRAUNATTI" => array(
               "data" => $JITENDRA_PRO_DEV_X_LOKI,
