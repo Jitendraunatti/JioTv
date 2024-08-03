@@ -1,15 +1,11 @@
 <?php
-error_reporting(0);
-include "jio_creds.php";
+include "jitendraunatti.php";
 $id = $_GET['id'];
-$cid = $_GET['cid'];
-$cid = image($cid);
 $ROLEX = jitendraunatti();
-
 ?>
 <html>
 <head>
-<title><?php echo "JIOTV+  " . $ASUR['hname']; ?></title>
+<title><?php echo "JIOTV+  " . $ROLEX['hname']; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -182,7 +178,7 @@ font-family: 'Quattrocento Sans', sans-serif;
 </div>
 </div>
 
-     <video autoplay controls crossorigin poster="<?php echo $ROLEX['jpimg']; ?>" playsinline>
+<video autoplay controls crossorigin poster="<?php echo $ROLEX['jpimg']; ?>" playsinline>
       <source src="<?php echo "portal.php?id=$id";?>" type="application/x-mpegURL">
     </video>
     <script>

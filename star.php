@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include "jio_creds.php";
+include "jitendraunatti.php";
 $ASUR = jitendraunatti();
 ?>
 <!DOCTYPE html>
@@ -78,7 +78,11 @@ $ASUR = jitendraunatti();
 </head>
 <body>
     <center>
-
+<h1 style="color: white;"><?php echo $ASUR['message6']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message7']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message8']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message9']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message10']; ?></h1>
 <div class="channels">
 <?php
 $fileContent = file_get_contents($ASUR['star']);

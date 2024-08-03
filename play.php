@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include "jio_creds.php";
+include "jitendraunatti.php";
 $id = $_GET['id'];
 $cid = $_GET['cid'];
 $cid = image($cid);

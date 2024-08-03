@@ -1,6 +1,6 @@
 <?php
-error_reporting(0);
-include "jio_creds.php";
+
+include "jitendraunatti.php";
 $ASUR = jitendraunatti();
 ?>
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ $ASUR = jitendraunatti();
             transform: translateY(-5px);
         }
         .channel img {
-            width: 150px;
+            width: 130px;
             height: auto;
             margin-bottom: 20px;
         }
@@ -118,6 +118,7 @@ $ASUR = jitendraunatti();
     </style>
 </head>
 <body>
+
 <center>
 <header>
         <div id="jtvh1">
@@ -128,6 +129,11 @@ $ASUR = jitendraunatti();
     <button id="PlayListButton" onclick="window.location.href='playlist.php'">PlayList</button>
     <button id="PlayListButton" onclick="window.location.href='star.php'">Star Tv</button>
 </div>
+<h1 style="color: white;"><?php echo $ASUR['message1']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message2']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message3']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message4']; ?></h1>
+<h1 style="color: white;"><?php echo $ASUR['message5']; ?></h1>
     </header></br>
     <div id="searchWrapper">
         <input type="text" name="searchBar" id="searchBar" placeholder="Search ..." />
@@ -199,7 +205,7 @@ $ASUR = jitendraunatti();
             echo '<h2>' . $name . '</h2>';
             echo '<p>Language: ' . $language . '</p>';
             echo '<p>Type: ' . $type . '</p>';
-            echo '<a href="play.php?id=' . $tvgId . "&cid=".$logo1.'" target="">Watch Now</a>';
+            echo '<a href="playy.php?id=' . $tvgId . "&cid=".$logo1.'" target="">Watch Now</a>';
             echo '</div>';
             echo '</div>';
             }

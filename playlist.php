@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
-include "jio_creds.php";
+header("Content-Type: application/json");
+include "jitendraunatti.php";
 $Avengers_Assemble = jitendraunatti();
 $SYLVIE = $_SERVER['REQUEST_URI'];
 $THOR = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';

@@ -1,25 +1,34 @@
 <?php
-include "jio_creds.php";
+include "jitendraunatti.php";
 $check_NB = "";
 
 $ASUR = jitendraunatti();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['mn'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+    if (isset($_POST['mn'])) 
+    {
         $mobile_no = @$_POST['mn'];
         $count_NB = strlen($mobile_no);
         $check_pass = "10";
 
-        if ($check_pass == $count_NB) {
-            if ($mobile_no != "") {
+        if ($check_pass == $count_NB) 
+        {
+            if ($mobile_no != "") 
+            {
 
                 $check_NB = "<button>" . jiotv_otp_send($mobile_no);
-            } else {
+            } else 
+            {
                 $check_NB = "<button>" . "Enter Mobile number" . "</button>";
             }
-        } else {
+        } 
+        else 
+        {
             $check_NB = "<button> please Enter 10 digits Number </button>";
         }
-    } elseif (isset($_POST['OTP'])) {
+    } 
+    elseif (isset($_POST['OTP'])) 
+    {
         $OTP = @$_POST['OTP'];
         
         $check_NB = "<button >" . jio_tv_login($OTP) . "</button>";
