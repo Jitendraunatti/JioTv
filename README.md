@@ -32,7 +32,7 @@ https://www.apachefriends.org/download.html
 
 ### 🅱️ Then Download This Zip File
 
-- [JioTV Zip](https://github.com/Jitendraunatti/JioTv/blob/main/JioTv.zip?raw=true) </br>
+- [JioTV Zip](https://github.com/Jitendraunatti/JioTv/archive/refs/heads/main.zip) </br>
 
 1. Locate & Extract all Files in LocalHost `Htdocs` Root Folder. </br>
 
