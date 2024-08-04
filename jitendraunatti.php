@@ -320,8 +320,8 @@ function jitendra_pro_dev_x_get_false($JITENDRA_PRO_DEV_X_URL,$JITENDRA_PRO_DEV_
         ]);
 
          $JITENDRA_PRO_DEV_X_LOKI = curl_exec($JITENDRA_PRO_DEV_X_IRON_MAN);
-        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_STATUS = curl_getinfo($JITENDRA_PRO_DEV_X_IRON_MAN);
+        curl_close($JITENDRA_PRO_DEV_X_IRON_MAN);
         $JITENDRA_PRO_DEV_X_JSON_ENCODE = array(
           "JITENDRAUNATTI" => array(
               "data" => $JITENDRA_PRO_DEV_X_LOKI,
