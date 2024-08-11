@@ -1,3 +1,4 @@
+
 <p align='center'><img src="https://i.ibb.co/BcjC6R8/jiotv.png" width="120" ></p>
 
 
@@ -34,7 +35,7 @@ https://www.apachefriends.org/download.html
 
 - [JioTV Zip](https://github.com/Jitendraunatti/JioTv/archive/refs/heads/main.zip) </br>
 
-1. Locate & Extract all Files in LocalHost `Htdocs` Root Folder. </br>
+1. Locate and delete `index.php` if this is your first-time setup, then extract all files into the `htdocs` root folder in localhost. </br> 
 
 2. Open KSWEB app & start the server. </br>
 
@@ -93,7 +94,23 @@ http://localhost:8080/JioTv/
 <img src="https://i.ibb.co/HT7gXyn/image.png" alt="home" width="700" height="350">
 
 
+<h3>TIZEN OS ,WEB OS  ANDRIOD TV SETUP:</h3>
 
+
+-   **Install KS Web App**:
+    
+    -   Ensure that the **KS Web** app is installed on your mobile device.
+-   **Connect Devices**:
+    
+    -   Your mobile device and TV must be connected to the **same Wi-Fi network**.
+-   **Accessing on TV**:
+    
+    -   Open the web browser on your TV.
+    -   On your mobile device, you will be provided with an IP address by the KS Web app.
+    -   **Note**: This IP address is different for every user.
+    -   Enter the provided IP address into your TV's browser .Ex http://192.168.0.120:8080
+-   **Example**:
+<img src="https://i.ibb.co/K5s5n5d/IMG-20240811-170717.jpg" alt="mob-Catchup" width="320">
 
 
 
