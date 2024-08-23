@@ -89,7 +89,7 @@ http://localhost:8080/JioTv/
 <h3>☠️ ADVANCED  FEATURES :</h3>
 
 - The channels and playlist are fetched directly from the JioTV API.
-- If you have your own M3U8 link, just set it up like this: play.php?id=https://dai.fancode.com/primary/103438_english_hls_6006ta-di/index.m3u8
+
 
 <img src="https://i.ibb.co/HT7gXyn/image.png" alt="home" width="700" height="350">
 
@@ -158,9 +158,7 @@ e.g. Hindi,Tamil,Kannada,Odia ...
 
 <p align="left">
 
-<img src="https://i.ibb.co/Zmsvfyv/Screenshot-2024-06-12-08-21-30-607-com-android-chrome.jpg" alt="mob-Catchup" width="120">
 
-<img src="https://i.ibb.co/wycvknq/Screenshot-2024-06-12-08-22-39-318-com-android-chrome.jpg" alt="mob-Catchup-Play" width="120">
 
 </p>
 
@@ -170,11 +168,10 @@ e.g. Hindi,Tamil,Kannada,Odia ...
 <img src="https://i.ibb.co/hc7VQRd/image.png" alt="home" width="300" height="150"></br>
 
 
-<img src="https://i.ibb.co/jfpd3fn/image.png" alt="home" width="300" height="150"></br>
+
 
 <img src="https://i.ibb.co/fxb1wr1/image.png" width="300" height="150"></br>
 
-<img src="https://i.ibb.co/KWrjMzq/image.png" width="300" height="150"></br>
 
 </br>
 
