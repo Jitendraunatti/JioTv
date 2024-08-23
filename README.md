@@ -91,7 +91,7 @@ http://localhost:8080/JioTv/
 - The channels and playlist are fetched directly from the JioTV API.
 
 
-<img src="https://i.ibb.co/HT7gXyn/image.png" alt="home" width="700" height="350">
+
 
 
 <h3>TIZEN OS ,WEB OS  ANDRIOD TV SETUP:</h3>
