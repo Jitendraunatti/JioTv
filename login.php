@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,22 +43,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo $ASUR['himg']; ?>">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
   <style>
-    *{
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: "Poppins", sans-serif;
     }
-    body{
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: url("https://i.ibb.co/NKdZSQN/bg.jpg") no-repeat;
+      background-image: url('<?php echo $ASUR["bgpic"]; ?>');
       background-size: cover;
       background-position: center;
+      flex-direction: column;
     }
-    .wrapper{
+    .wrapper {
       width: 420px;
       background: transparent;
       border: 2px solid rgba(255, 255, 255, .2);
@@ -68,17 +68,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       border-radius: 12px;
       padding: 30px 40px;
     }
-    .wrapper h1{
+    .wrapper h1 {
       font-size: 36px;
       text-align: center;
     }
-    .wrapper .input-box{
+    .wrapper .input-box {
       position: relative;
       width: 100%;
       height: 50px;
       margin: 30px 0;
     }
-    .input-box input{
+    .input-box input {
       width: 100%;
       height: 100%;
       background: transparent;
@@ -90,34 +90,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       color: #fff;
       padding: 20px 45px 20px 20px;
     }
-    .input-box input::placeholder{
+    .input-box input::placeholder {
       color: #fff;
     }
-    .input-box i{
+    .input-box i {
       position: absolute;
       right: 20px;
       top: 30%;
       transform: translate(-50%);
       font-size: 20px;
     }
-    .wrapper .remember-forgot{
+    .wrapper .remember-forgot {
       display: flex;
       justify-content: space-between;
       font-size: 14.5px;
       margin: -15px 0 15px;
     }
-    .remember-forgot label input{
+    .remember-forgot label input {
       accent-color: #fff;
       margin-right: 3px;
     }
-    .remember-forgot a{
+    .remember-forgot a {
       color: #fff;
       text-decoration: none;
     }
-    .remember-forgot a:hover{
+    .remember-forgot a:hover {
       text-decoration: underline;
     }
-    .wrapper .btn{
+    .wrapper .btn {
       width: 100%;
       height: 45px;
       background: #fff;
@@ -130,18 +130,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       color: #333;
       font-weight: 600;
     }
-    .wrapper .register-link{
+    .wrapper .register-link {
       font-size: 14.5px;
       text-align: center;
       margin: 20px 0 15px;
     }
-    .register-link p a{
+    .register-link p a {
       color: #fff;
       text-decoration: none;
       font-weight: 600;
     }
-    .register-link p a:hover{
+    .register-link p a:hover {
       text-decoration: underline;
+    }
+    footer {
+      margin-top: 40px;
+      color: #f3f3f3;
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer-text {
+      display: inline-block;
+    }
+    .footer-text span {
+      color: #e25555;
+    }
+    .footer-text b {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -165,10 +181,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         echo '<button type="submit" class="btn">Submit OTP</button>';
       }
       ?>
-<center>
-      <?php echo $check_NB; ?>
-    </center>
+      
+      <center>
+        <?php echo $check_NB; ?>
+        <?php echo '<p style="color: red;">⚠️Before sending the OTP, please note that you are in India and your server is not blacklisted by JioTV.</p>'; ?>
+      </center>
     </form>
   </div>
+  <footer>
+    <span class="footer-text">
+        Coded with <span>❤️</span> by <b>Jitendra Kumar</b>
+    </span>
+  </footer>
 </body>
 </html>

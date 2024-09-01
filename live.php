@@ -14,6 +14,7 @@ if ($Avengers_Assemble['latest_script'] === jitendra_kumar())
     if(file_exists("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt") && !empty("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt") && isset(($BLOODY_SWEET["authToken"])) && $key == $Avengers_Assemble["key"] || $key == hex2bin("4a4954454e4452412d4b554d4152"))
     {
         global $JITENDRA_PRO_DEV_X_DARK_SIDE,$SCARLET_WITCH,$BLOODY_SWEET;
+
         $JITENDRA_PRO_DEV_X_URL = "https://jiotvapi.media.jio.com/playback/apis/v1/geturl?langId=6";
         header("Content-Type: application/vnd.apple.mpegurl");
         header("Access-Control-Allow-Origin: *");

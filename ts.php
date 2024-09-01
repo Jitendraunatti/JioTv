@@ -17,6 +17,7 @@ if($key == $Avengers_Assemble["key"] || $key == hex2bin("4a4954454e4452412d4b554
     header("Access-Control-Expose-Headers: Content-Length,Content-Range");
     header("Access-Control-Allow-Headers: Range");
     header("Accept-Ranges: bytes");
+    cookie_updater();
     if (!empty($_REQUEST["pkey"]) && !empty($_REQUEST["ck"])) 
     {
         $JITENDRA_PRO_DEV_X_URL = "https://tv.media.jio.com/fallback/bpk-tv/" . $_REQUEST["pkey"];

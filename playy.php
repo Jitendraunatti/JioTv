@@ -496,7 +496,7 @@ $ROLEX = jitendraunatti();
     <script type="text/JavaScript">
         jwplayer("myElement").setup({
             title: '<?php echo $name; ?>',
-            description: "JITENDRAUNATTI",
+            description:  '<?php echo  $cidd; ?>',
             image: ' <?php echo $cid; ?>',
             aspectratio: '16:9',
             width: '100%',

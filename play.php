@@ -5,7 +5,7 @@ $id = $_GET['id'];
 $cid = $_GET['cid'];
 $cid = image($cid);
 $ROLEX = jitendraunatti();
-
+cookie_updater();
 ?>
 <html>
 <head>

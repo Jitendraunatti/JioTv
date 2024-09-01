@@ -12,10 +12,15 @@ $ASUR = jitendraunatti();
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo $ASUR['himg']; ?>">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-image: url('<?php echo $ASUR["bgpic"]; ?>');
+            background-size: cover; 
+            background-attachment: fixed; 
+            background-position: center; 
+            color: #f3f3f3;
+            text-align: center;
+            padding: 0;
             margin: 0;
-            padding: 20px;
-            background-color: black;
+            min-height: 100vh; 
         }
         .channels {
             display: grid;
