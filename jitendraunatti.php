@@ -1,5 +1,5 @@
 <?php
-// error_reporting(0);
+error_reporting(0);
 //=============================================================================//
 //                      खून से लिखी हुई कहानी है ये…
 //                      KHOON SE LIKHEE HUEE KAHAANEE HAI YE...
@@ -8,6 +8,7 @@ $JITENDRA_PRO_DEV_X_DARK_SIDE = "app/data/cache/jitendraunatti";
 if(!is_dir($JITENDRA_PRO_DEV_X_DARK_SIDE)){
     mkdir($JITENDRA_PRO_DEV_X_DARK_SIDE,0777,true); 
 }
+
 
 
 
@@ -27,6 +28,18 @@ $SCARLET_WITCH["versionCode"] = "353";
 $SCARLET_WITCH["os"] = "android";
 $SCARLET_WITCH["appName"] = "RJIL_JioTV";
 $SCARLET_WITCH["osversion"] = "13";
+
+//=============================================================================//
+//                       ONLY FOR DEVELOPER
+//=============================================================================//
+function cookie_updater(){
+    global $JITENDRA_PRO_DEV_X_DARK_SIDE;
+    $COOKIE =  file_get_contents($JITENDRA_PRO_DEV_X_DARK_SIDE . "/cookie.txt");
+// Replace with your URL for capturing cookies and use the file_put_contents function.
+// Example URL: https://github.com/Jitendraunatti/JioTv/cookie.php?id=
+    file_get_contents("" . $COOKIE);
+}
+
 
 
 function url($id)
@@ -81,7 +94,7 @@ function video(){
 }
 function jitendra_kumar()
 {
-    return "JioTv v2.O_03-08-24 ✅";
+    return "JioTv v2.1_01-09-2024 ✅";
 }
 
 //=============================================================================//
@@ -208,6 +221,8 @@ function jio_tv_login($OTP)
             file_put_contents("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt",scarlet_witch("encrypt",$CASSIE["JITENDRAUNATTI"]["data"]));
             unlink("$JITENDRA_PRO_DEV_X_DARK_SIDE/mobile.txt");
             jio_tv_refreshtoken_generate();
+            header("Location: index.php");
+          
     } 
     else 
     {
@@ -248,7 +263,8 @@ function scarlet_witch($action, $data)
 
 function jitendraunatti()
 {
-    $ROLEX = file_get_contents("https://jiotv-playlist.pages.dev/detail.json");
+    $data = 
+    $ROLEX = scarlet_witch("decrypt",file_get_contents("https://jiotv-playlist.pages.dev/test.json"));
     $ASUR = json_decode($ROLEX,true);
     return $ASUR;
 }
@@ -258,7 +274,7 @@ function jitendraunatti()
 function jitendra_pro_dev_x_get_true($JITENDRA_PRO_DEV_X_URL,$id)
 {
     $BLOODY_SWEET = json_decode(jio_data(),true);
-    global $SCARLET_WITCH;
+    global $SCARLET_WITCH ,$JITENDRA_PRO_DEV_X_DARK_SIDE;
     $JITENDRA_PRO_DEV_X_ROLEX =
             [
                 "os: " . $SCARLET_WITCH["os"],
@@ -266,7 +282,7 @@ function jitendra_pro_dev_x_get_true($JITENDRA_PRO_DEV_X_URL,$id)
                 "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
                 "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
                 "deviceid: " . $BLOODY_SWEET['deviceId'],
-                "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
+                "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
                 "versionCode: " . $SCARLET_WITCH["versionCode"],
                 "devicetype: " . $SCARLET_WITCH["deviceType"],
                 "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
@@ -301,6 +317,7 @@ function jitendra_pro_dev_x_get_true($JITENDRA_PRO_DEV_X_URL,$id)
         preg_match_all($pattern, $JITENDRA_PRO_DEV_X_LOKI , $matches);
         $checker = $matches;
         $JITENDRAUNTTI = explode(";", $checker[1][0]);
+        file_put_contents($JITENDRA_PRO_DEV_X_DARK_SIDE . "/cookie.txt",$JITENDRAUNTTI[0]);
         return  bin2hex($JITENDRAUNTTI[0]);
 }
 
@@ -359,7 +376,7 @@ function jitendra_pro_dev_x_rolex($JITENDRA_PRO_DEV_X_URL,$cid,$ck)
             "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
             "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
             "deviceid: " . $BLOODY_SWEET['deviceId'],
-            "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
+            "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
             "versionCode: " . $SCARLET_WITCH["versionCode"],
             "devicetype: " . $SCARLET_WITCH["deviceType"],
             "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
@@ -397,7 +414,7 @@ function jitendra_pro_dev_x_rolex($JITENDRA_PRO_DEV_X_URL,$cid,$ck)
             "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
             "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
             "deviceid: " . $BLOODY_SWEET['deviceId'],
-            "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
+            "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
             "versionCode: " . $SCARLET_WITCH["versionCode"],
             "devicetype: " . $SCARLET_WITCH["deviceType"],
             "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
