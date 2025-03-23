@@ -1,185 +1,83 @@
 <?php
+include('jitendraunatti.php');
 //=============================================================================//
 //                       स्याही से नहीं बढ़ेगी.
 //                    SYAAHEE SE NAHIN BADHEGEE.
 //=============================================================================//
-include ("jitendraunatti.php");
-$Avengers_Assemble = jitendraunatti();
-$BLOODY_SWEET = json_decode(jio_data(),true);
-$id = $_GET["id"];
-$key = $_GET["key"];
-
-if ($Avengers_Assemble['latest_script'] === jitendra_kumar()) 
-{
-    if(file_exists("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt") && !empty("$JITENDRA_PRO_DEV_X_DARK_SIDE/authToken.txt") && isset(($BLOODY_SWEET["authToken"])) && $key == $Avengers_Assemble["key"] || $key == hex2bin("4a4954454e4452412d4b554d4152"))
-    {
-        global $JITENDRA_PRO_DEV_X_DARK_SIDE,$SCARLET_WITCH,$BLOODY_SWEET;
-
-        $JITENDRA_PRO_DEV_X_URL = "https://jiotvapi.media.jio.com/playback/apis/v1/geturl?langId=6";
-        header("Content-Type: application/vnd.apple.mpegurl");
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Expose-Headers: Content-Length,Content-Range");
-        header("Access-Control-Allow-Headers: Range");
-        header("Accept-Ranges: bytes");
-        $JITENDRA_PRO_DEV_X_KANG = 'stream_type=Seek&channel_id='. $id;
-            $JITENDRA_PRO_DEV_X_ROLEX = [
-                "appkey: NzNiMDhlYzQyNjJm",
-                "devicetype: " . $SCARLET_WITCH["deviceType"],
-                "os: " . $SCARLET_WITCH["os"],
-                "deviceid: " . $BLOODY_SWEET['deviceId'],
-                "osversion: " . $SCARLET_WITCH["osversion"],
-                "dm: " . $SCARLET_WITCH["p-Name"],
-                "uniqueid: " . $BLOODY_SWEET['sessionAttributes']['user']['unique'],
-                "usergroup: tvYR7NSNn7rymo3F",
-                "languageid: 6",
-                "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-                "sid: " . $BLOODY_SWEET['analyticsId'],
-                "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-                "isott: false",
-                "channel_id: " . $id,
-                "langid: ",
-                "camid: ",
-                "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
-                "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-                "lbcookie: 1",
-                "versioncode: " . $SCARLET_WITCH["versionCode"],
-                "content-type: application/x-www-form-urlencoded",
-                "content-length: " . strlen($JITENDRA_PRO_DEV_X_KANG),
-                "accept-encoding: gzip",
-                "user-agent: " . $SCARLET_WITCH["User-Agent"],
-            ];
-
-
-        $CASSIE = jitendra_pro_dev_x_post_false($JITENDRA_PRO_DEV_X_URL,$JITENDRA_PRO_DEV_X_ROLEX,$JITENDRA_PRO_DEV_X_KANG);
-        $WANDA_JSON = json_decode($CASSIE["JITENDRAUNATTI"]["data"], true);
-        file_get_contents("https://jiotv.developed-by-asur.workers.dev/?key=JITENDRA_PRO_DEV&jiotv=" . $WANDA_JSON["result"]);
-        if ($WANDA_JSON['code'] == 419 && $WANDA_JSON['message'] === "Token is expired") 
-        {
-            jio_tv_refreshtoken_generate();
-            header('Location: ' . $_SERVER['REQUEST_URI']);
-            exit();
-        }
-        else if($WANDA_JSON['code'] == 200 && $WANDA_JSON['message'] === "success")
-        {
-            if(isset($WANDA_JSON["result"]) && !empty($WANDA_JSON["result"]))
-            {
-                $DOCTOR_STRANGE = explode("/",$WANDA_JSON["result"]);
-                if($DOCTOR_STRANGE[5] === "Fallback")
-                {
-                    $THOR = jitendra_pro_dev_x_rolex($WANDA_JSON["result"],$id,$ck = NULL);
-                    $JANE_FOSTER = jitendra_pro_dev_x_get_true($WANDA_JSON["result"],$id);
-                    $CHRISTINE = $THOR["JITENDRAUNATTI"]["data"];
-                    $DEVARA = [
-                        'URI="',
-                        "$DOCTOR_STRANGE[4]-video",
-                        "$DOCTOR_STRANGE[4]-audio",
-                        'URI="stream.php?cid=' . $id . '&id=stream.php?cid=' . $id . '&id=',
-                        'stream.php?cid=' . $id . '&id=keyframes/stream.php?cid=' . $id . '&id=',
-                        'stream.php?cid=',
-                        "#EXTM3U",
-                    ];
-                    $LEO_THALAPATHY = [
-                        'URI="stream.php?cid=' . $id . '&key=' . $key . '&id=',
-                        "stream.php?cid=$id&key=$key&id=$DOCTOR_STRANGE[4]-video",
-                        "stream.php?cid=$id&key=$key&id=$DOCTOR_STRANGE[4]-audio",
-                        'URI="stream.php?cid=' . $id . '&key=' . $key . '&id=',
-                        'stream.php?cid=' . $id . '&id=keyframes/',
-                        "stream.php?ck=$JANE_FOSTER&cid=",
-                        "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR",
-                    ];
-
-                    $LEO = str_replace($DEVARA, $LEO_THALAPATHY,$CHRISTINE );
-                    echo $LEO;
-                }
-                else if($DOCTOR_STRANGE[3] === $DOCTOR_STRANGE[5])
-                {
-
-
-                    $THOR = jitendra_pro_dev_x_rolex($WANDA_JSON["result"],$id,$ck = NULL);
-                    $JANE_FOSTER = jitendra_pro_dev_x_get_true($WANDA_JSON["result"],$id);
-                    $CHRISTINE = $THOR["JITENDRAUNATTI"]["data"];
-                    $DEVARA = 
-                    [
-                        $DOCTOR_STRANGE[3],
-                        "#EXTM3U",
-                    ];
-                    $LEO = 
-                    [
-                        "stream.php?ck=$JANE_FOSTER&key=$key&cid=$DOCTOR_STRANGE[3]&id=$id&&ts=$DOCTOR_STRANGE[3]",
-                        "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR",
-
-                    ];
-                    $LEO = str_replace($DEVARA, $LEO, $CHRISTINE);
-                    echo $LEO;
-                }
-                elseif($DOCTOR_STRANGE[5] === "HLSPartner") 
-                {
-                    $THOR = jitendra_pro_dev_x_rolex($WANDA_JSON["result"],$id,$ck = NULL);
-                    $JANE_FOSTER = jitendra_pro_dev_x_get_true($WANDA_JSON["result"],$id);
-                    $CHRISTINE = $THOR["JITENDRAUNATTI"]["data"];
-                    $DEVARA = 
-                    [
-                        $DOCTOR_STRANGE[4],
-                        "#EXTM3U",
-                    ];
-                    $LEO_THALAPATHY = 
-                    [
-                        "stream.php?ck=$JANE_FOSTER&key=$key&id=$id&cid=$DOCTOR_STRANGE[4]&hls=$DOCTOR_STRANGE[4]",
-                        "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR",
-                    ];
-                    $LEO = str_replace($DEVARA,$LEO_THALAPATHY, $CHRISTINE);
-                    echo $LEO;
-                    
-                }
-                else
-                {
-                    video();
-                    echo "#I think we need to increase the lines of code.";
-                }
-            }
-            else
-            {
-                video();
-                echo "#Response is OK, but result not found.";
-            }
-        }
-        else if(strpos($WANDA_JSON["result"], "https://gec-007-jc.slivcdn.com/HLS/") !== false)
-        {
-            $THOR = jitendra_pro_dev_x_rolex($WANDA_JSON["result"],$id,$ck = NULL);
-            $JANE_FOSTER = jitendra_pro_dev_x_get_true($WANDA_JSON["result"],$id);
-            $LOKI = $THOR["JITENDRAUNATTI"]["data"];
-            $CHRISTINE = explode("/",$WANDA_JSON["result"]);
-            $LOKI = explode("_",$CHRISTINE[5]);
-            $DEVARA = 
-            [
-                "$LOKI[0]",
-                "#EXTM3U",
-            ];
-            $LEO_THALAPATHY = 
-            [
-                "sony.php?ck=$JANE_FOSTER&id=$id&key=$key&hls=$CHRISTINE[0]/$CHRISTINE[1]/$CHRISTINE[2]/$CHRISTINE[3]/$CHRISTINE[4]/$LOKI[0]",
-                "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR",
-            ];
-            $LEO = str_replace($DEVARA, $LEO_THALAPATHY, $THOR["JITENDRAUNATTI"]["data"]);
-            echo $LEO;
-        }
-        else
-        {
-            video();
-            echo "#something went wrong when hit api url";
-         
-        }
-    }
-    else
-    {
-        video();
-        echo "#please login first";
-        echo "#KEY IS MISSING";
-    }
+if (!($_REQUEST["token"] == base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) || $_REQUEST["token"] == base64_decode(hex2bin("524539445645395358314e55556b464f5230553d")))) {
+    exit(video());
 }
-else
-{
-    echo video();
-    echo "#UPDATED YOUR SCRIPT";
+if (!file_exists("$DARK_SIDE/login_token.jitendraunatti") || empty(file_get_contents("$DARK_SIDE/login_token.jitendraunatti")) || !isset($BLOODY_SWEET["authToken"])) {
+    exit(video());
 }
-?>
+$CASSIE = "";
+if (strlen($_REQUEST['id']) <= 4 && is_numeric($_REQUEST["id"]) && $_REQUEST["token"] === base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d"))) {
+    $KANG = 'stream_type=Seek&channel_id=' . $_REQUEST['id'];
+    $ROLEX = [
+        'User-Agent: ' . $SCARLET_WITCH['User-Agent'],
+        'Accept-Encoding: gzip',
+        'Content-Type: application/x-www-form-urlencoded',
+        'appkey: NzNiMDhlYzQyNjJm',
+        'devicetype: ' . $SCARLET_WITCH['deviceType'],
+        'os: ' . $SCARLET_WITCH['os'],
+        'deviceId: ' . $BLOODY_SWEET['deviceId'],
+        'versionCode: ' . $SCARLET_WITCH['versionCode'],
+        'osversion: ' . $SCARLET_WITCH['osversion'],
+        'dm: ' . $SCARLET_WITCH['model'],
+        'uniqueid: ' . $BLOODY_SWEET['sessionAttributes']['user']['unique'],
+        'usergroup: tvYR7NSNn7rymo3F',
+        'languageid: 6',
+        'userid: ' . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
+        'sid: ' . $BLOODY_SWEET['analyticsId'],
+        'crmid: ' . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
+        'isott: false',
+        'channel_id: ' . $_REQUEST['id'],
+        'langid: ',
+        'camid: ',
+        'accesstoken: ' . jio_tv_re_use_refreshtoken_generate(),
+        'ssotoken: ' . $BLOODY_SWEET['jToken'],
+        'subscriberid: ' . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
+        'lbcookie: 1',
+    ];
+    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["geturl"])), $ROLEX, 'POST', $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
+    $CHRISTINE =  json_decode($DOCTOR_STRANGE['JITENDRAUNATTI']['data'], true);
+    file_get_contents("https://jiotv-log-service.developed-by-asur.workers.dev/?log=" . $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+    if ($CHRISTINE['code'] == 419 && $CHRISTINE['message'] === 'Token is expired') {
+        jio_tv_refreshtoken_generate();
+        header('Location: ' . $_SERVER['REQUEST_URI']);
+        exit();
+    } else if ($CHRISTINE['code'] ===  200 && ($CHRISTINE['message'] === 'success' || $CHRISTINE['message'] === 'Success') && !empty($CHRISTINE['result'])) {
+        $WANDA = explode('/', $CHRISTINE['result']);
+        $NATASHA = explode('?', $CHRISTINE['result']);
+        $VISION = str_replace(basename($NATASHA[0]), '', $NATASHA[0]);
+        if ($WANDA[5] === 'Fallback') {
+            $DOCTOR_STRANGE = jitendraunatti($CHRISTINE['result'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], null);
+            $CHRISTINE =  cookie_fetecher($CHRISTINE['result'],  $_REQUEST['id']);
+            echo str_replace([$WANDA[4] . '-audio', ',URI="', "#EXTM3U", ".m3u8"], ['wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' .  bin2hex(base64_encode($CHRISTINE)) . '&jane_foster=' . $VISION . '&id=' . $_REQUEST['id'] . '&groot=' . $WANDA[4] . '&wanda=' . $WANDA[4] . '-audio', ',URI="wanda.php?thor=' .  bin2hex(base64_encode($CHRISTINE)) . '&jane_foster=' . $VISION . '&id=' . $_REQUEST['id'] . '&groot=' . $WANDA[4] . '&wanda=', "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR", ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+        } elseif ($WANDA[5] === 'HLSPartner') {
+            $DOCTOR_STRANGE = jitendraunatti($CHRISTINE['result'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], null);
+            $CHRISTINE =  cookie_fetecher($CHRISTINE['result'],  $_REQUEST['id']);
+            echo str_replace([$WANDA[4], "#EXTM3U", ".m3u8"], ['wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' .  bin2hex(base64_encode($CHRISTINE)) . '&jane_foster=' . $VISION . '&id=' . $_REQUEST['id'] . '&groot=' . $WANDA[4] . '&hls=' . $WANDA[4], "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR", ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+        } elseif ($WANDA[3] === $WANDA[5]) {
+            $DOCTOR_STRANGE = jitendraunatti($CHRISTINE['result'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], null);
+            $CHRISTINE =  cookie_fetecher($CHRISTINE['result'],  $_REQUEST['id']);
+            echo str_replace([$WANDA[3], "#EXTM3U", ".m3u8"], ['wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' .  bin2hex(base64_encode($CHRISTINE)) . '&jane_foster=' . $VISION . '&id=' . $_REQUEST['id'] . '&groot=' . $WANDA[3] . '&marvel=' . $WANDA[3], "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR", ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+        } elseif ($WANDA[2] === "gec-007-jc.slivcdn.com" || "HLS" === $WANDA[3]) {
+            $DOCTOR_STRANGE = jitendraunatti($CHRISTINE['result'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], null);
+            $CHRISTINE =  cookie_fetecher($CHRISTINE['result'],  $_REQUEST['id']);
+            echo str_replace(["WL2", "#EXTM3U", ".m3u8"], ['wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' .  bin2hex(base64_encode($CHRISTINE)) . '&jane_foster=' . $VISION . '&id=' . $_REQUEST['id'] . '&groot=' . $WANDA[3] . '&sony=WL2', "#EXTM3U\n#DEVELOPED_BY_JITENDRA_PRO_DEV\n#AUTHOR-JITENDRA-KUMAR", ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+        } else {
+            echo video();
+            echo "#Response is OK, but result not found.";
+        }
+    } else {
+        echo video();
+        echo "#something went wrong when hit api url";
+    }
+} else if (strpos($_REQUEST["id"], "zee5.com") !== false || (strpos($_REQUEST["ts"], "zee5.com") !== false || strpos($_REQUEST["tss"], "zee5.com") !== false) && ($_REQUEST["key"] === hex2bin(base64_decode("NGE0OTU0NDU0ZTQ0NTI0MTVmNGI1NTRkNDE1Mg")) && $_REQUEST["token"] === base64_decode(hex2bin("524539445645395358314e55556b464f5230553d")))) {
+    $JITENDRAUNATTI = jitendraunatti($_REQUEST["id"] ?: $_REQUEST["ts"] ?: $_REQUEST["tss"], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, null, null)['JITENDRAUNATTI']['data'];
+    echo $_REQUEST["id"] ? str_replace("master", $CASSIE . "?token=" . base64_decode(hex2bin("524539445645395358314e55556b464f5230553d")) . "&key=" . hex2bin("4a4954454e4452415f4b554d4152") . "&rolex=" . str_replace(["master", "index-connected"], ["", ""], explode(".m3u8", $_REQUEST["id"])[0]) . "&ts=" . str_replace(["master", "index-connected"], ["", ""], explode(".m3u8", $_REQUEST["id"])[0]) . "master", $JITENDRAUNATTI) : ($_REQUEST["tss"] ? $JITENDRAUNATTI : str_replace("master", $CASSIE . "?token=" . base64_decode(hex2bin("524539445645395358314e55556b464f5230553d")) . "&key=" . hex2bin("4a4954454e4452415f4b554d4152") . "&tss=" . $_REQUEST["rolex"] . "master", $JITENDRAUNATTI));
+} else {
+    video();
+    echo "#i am inn else code";
+}
