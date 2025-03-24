@@ -331,7 +331,7 @@ function cookie()
         foreach ($AVENGERS as $BLACK_WIDOW) {
             if (strpos($BLACK_WIDOW, 'exp=') !== false) {
                 $DOCTOR_STRANGE = explode('=', $BLACK_WIDOW);
-                $CAPTAIN_AMERICA = $DOCTOR_STRANGE[1] ?? null;
+                $CAPTAIN_AMERICA = $DOCTOR_STRANGE[2] ?? null;
                 break;
             }
         }
@@ -350,7 +350,7 @@ function cookie()
         }
     }
     $ROLEX = array();
-    $VISION[] = "cookie:" . $SPIDER_MAN;
+    $VISION["cookie"] =   $SPIDER_MAN;
     foreach ($VISION as $WANDA => $SCARLET_WITCH) {
         $ROLEX[] = "$WANDA: $SCARLET_WITCH";
     }
