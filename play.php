@@ -232,10 +232,12 @@ if (empty($cid)) {
                 const t = new Hls(config);
                 t.loadSource(n), t.on(Hls.Events.MANIFEST_PARSED, function(n, l) {
                     const s = t.levels.map(e => e.height);
+                    const last = t.levels[t.levels.length - 1].height;
+
                     o.quality = {
-                        default: s[0],
+                        default: last,
                         options: s,
-                        forced: !0,
+                        forced: true,
                         onChange: e => (function(e) {
                             window.hls.levels.forEach((n, o) => {
                                 n.height === e && (window.hls.currentLevel = o)
