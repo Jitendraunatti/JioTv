@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^live.m3u8 live.php [NC,L]
+</IfModule>
