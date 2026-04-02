@@ -18,187 +18,131 @@ if (!file_exists("$DARK_SIDE/.htaccess")) {
 if (!file_exists("$DARK_SIDE/index.php")) {
     file_put_contents("$DARK_SIDE/index.php", "<?php http_response_code(403); exit('Forbidden'); ?>");
 }
-//=============================================================================//
-//                        𝐂𝐇𝐀𝐍𝐆𝐄𝐀𝐁𝐋𝐄_𝐀𝐏𝐏_𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍
-//=============================================================================//
-$SCARLET_WITCH["user-agent"] = "plaYtv/7.1.7 (Linux;Android 13) ExoPlayerLib/2.11.7";
-$SCARLET_WITCH["User-Agent"] = "okhttp/4.11.0";
-$SCARLET_WITCH["deviceType"] = "phone";
-$SCARLET_WITCH["devicename"] = "V2302A";
-$SCARLET_WITCH["p-Name"] = "PD2302";
-$SCARLET_WITCH["manufacturer"] = "vivo";
-$SCARLET_WITCH["model"] = "V2302A";
-$SCARLET_WITCH["x-platform"] = "android";
-$SCARLET_WITCH["proxy"] = "ON";
-$SCARLET_WITCH["versionCode"] = "380";
-$SCARLET_WITCH["os"] = "android";
-$SCARLET_WITCH["appName"] = "RJIL_JioTV";
-$SCARLET_WITCH["osversion"] = "13";
-$BLOODY_SWEET = jio_data();
-$TONY_STARK = doctor_strange()["jiotv_api"];
-function jio_tv_re_use_refreshtoken_generate()
-{
-    global $DARK_SIDE, $SCARLET_WITCH;
-    $ASUR = file_get_contents($DARK_SIDE . "/Refresh_token.jitendraunatti");
-    $ASUR = scarlet_witch("decrypt", $ASUR);
-    $ASUR = json_decode($ASUR, true);
-    return $ASUR["data"]['authToken'];
+header("access-control-allow-origin: *");
+header("access-control-allow-headers: content-type, x-developed-by, x-powered-by, x-github-username, x-timestamp, x-readable-time");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+$SCARLET_WITCH = doctor_strange();
+$STARK_INDUSTRIES = @jio_data();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    header('Content-Type: application/json');
+    $TONY_STARK = json_decode(file_get_contents('php://input'), true);
+    $headers = getallheaders();
+    $headers = array_change_key_case($headers, CASE_LOWER);
+    $JPD   = isset($headers['x-developed-by']) && $headers['x-developed-by'] === $SCARLET_WITCH['JITENDRA_UNIVERSE']['x-developed-by'];
+    $WANDA = isset($headers['x-powered-by']) && $headers['x-powered-by'] === $SCARLET_WITCH['JITENDRA_UNIVERSE']['X-POWERED-BY'];
+    if ($JPD && $WANDA) {
+        $ACTION = $TONY_STARK['action'] ?? '';
+        if ($ACTION === "livechannels") {
+            $cacheFile = $WHITE_SIDE . '/livechannels.json';
+            $cacheTime = 86400;
+            $content = '';
+            if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
+                $content = file_get_contents($cacheFile);
+            } else {
+                $content = file_get_contents($SCARLET_WITCH['api_endpoint']['live_channels']);
+                if ($content) {
+                    file_put_contents($cacheFile, $content);
+                }
+            }
+            $etag = md5($content);
+            header("Cache-Control: public, max-age=3600");
+            header("ETag: \"$etag\"");
+            header("Vary: x-developed-by, x-powered-by, x-github-username");
+            if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == "\"$etag\"") {
+                http_response_code(304);
+                exit;
+            }
+
+            echo $content;
+        } else if ($ACTION === "livechannelszee5") {
+            $cacheFile = $WHITE_SIDE . '/zee5.json';
+            $cacheTime = 86400;
+            $content = '';
+            if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
+                $content = file_get_contents($cacheFile);
+            } else {
+                $content = file_get_contents($SCARLET_WITCH['zee_api']['web_api']);
+                if ($content) {
+                    file_put_contents($cacheFile, $content);
+                }
+            }
+            $etag = md5($content);
+            header("Cache-Control: public, max-age=3600");
+            header("ETag: \"$etag\"");
+            header("Vary: x-developed-by, x-powered-by, x-github-username");
+            if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == "\"$etag\"") {
+                http_response_code(304);
+                exit;
+            }
+
+            echo $content;
+        } else if ($ACTION === "otpsend") {
+            $mobile_no = $TONY_STARK['number'] ?? '';
+            if (!empty($mobile_no) && strlen($mobile_no) == 10) {
+                $JARVIS_RESPONSE = jiotv_otp_send($mobile_no);
+                echo $JARVIS_RESPONSE;
+            } else {
+                echo json_encode([
+                    "message" => "INVALID_MOBILE_NUMBER ❌",
+                    "ui_label" => "Please enter a valid 10-digit number",
+                    "status" => "failed"
+                ]);
+            }
+        } else if ($TONY_STARK['action'] === "otpverify") {
+            $OTP_CODE = $TONY_STARK['otp'] ?? '';
+            if (!empty($OTP_CODE)) {
+                echo jio_tv_login($OTP_CODE);
+            } else {
+                echo json_encode(["message" => "MISSING_OTP", "ui_label" => "Please enter OTP ❌"]);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(["error" => "Unknown Action Protocol"]);
+        }
+    } else {
+        http_response_code(403);
+        echo json_encode(["error" => "Unauthorized: Signatures Not Verified"]);
+    }
 }
 function image($cid)
 {
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
 
-    if (isset($TONY_STARK['image_api'])) {
-        $ROLEX = json_decode(file_get_contents($TONY_STARK["image_api"]), true);
+    if (isset($SCARLET_WITCH['api_endpoint']['img_cdn_url'])) {
+        $ROLEX = json_decode(file_get_contents($SCARLET_WITCH['api_endpoint']['img_cdn_url']), true);
         return $ROLEX[array_rand($ROLEX)]["url"];
     } else {
-        return "https://jiotvimages.cdn.jio.com/dare_images/images/$cid.png";
+        return "https://jiotvimages.cdn.jio.com/dare_images/images/$cid";
     }
 }
 function live_id($id)
 {
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
     if (strlen($id) < 6 || strpos($id, "zee5.com") !== false) {
-        $id = "live.php?id=$id&token=JITENDRA_KUMAR&e.m3u8";
+        $id = "live.php?id=$id&token=" . $SCARLET_WITCH['JITENDRA_UNIVERSE']['token'] . "&e=.m3u8";
         return str_replace(".jitendraunatti", ".m3u8", $id);
     } else {
         return str_replace(".jitendraunatti", ".m3u8", $id);
     }
 }
-function video()
-{
-    $LOKI = file_get_contents("https://video.twimg.com/amplify_video/1797150287292981248/pl/-GLBpWJuiNKBrdvp.m3u8");
-    $LOKI = str_replace("/amplify_video/", "https://video.twimg.com/amplify_video/", $LOKI);
-    return $LOKI;
-}
-function jitendra_kumar()
-{
-    return "JioTv v3.0.0_023-03-2025";
-}
-function jiotv_old()
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    return json_decode(scarlet_witch("decrypt",  file_get_contents($DARK_SIDE . "/login_token.jitendraunatti")), true);
-}
-//=============================================================================//
-//                      𝐉𝐈𝐎_𝐂𝐈𝐍𝐄𝐌𝐀_𝐑𝐄𝐅𝐑𝐄𝐒𝐇𝐓𝐎𝐊𝐄𝐍_𝐏𝐑𝐎𝐂𝐄𝐒𝐒
-//=============================================================================//
-function jio_tv_refreshtoken_generate()
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    $BLOODY_SWEET = jio_data();
-
-    $KANG = json_encode([
-        "appName" => $SCARLET_WITCH["appName"],
-        "deviceId" => $BLOODY_SWEET['deviceId'],
-        "refreshToken" => $BLOODY_SWEET['refreshToken']
-    ]);
-    $ROLEX = [
-        'User-Agent: ' . $SCARLET_WITCH["User-Agent"],
-        'Accept-Encoding: gzip',
-        'Content-Type: application/json',
-        "accesstoken: " . $BLOODY_SWEET['authToken'],
-        "devicetype: " . $SCARLET_WITCH["deviceType"],
-        "versionCode: " . $SCARLET_WITCH["versionCode"],
-        "os: " . $SCARLET_WITCH["os"],
-        'uniqueid: ' . $BLOODY_SWEET["sessionAttributes"]["user"]["unique"],
-        'content-type: application/json; charset=utf-8',
-
-    ];
-
-    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["refreshtoken"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
-    $CHRISTINE =  json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
-    if ($CHRISTINE['code'] === 401) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else if ($CHRISTINE['code'] === 200 && !empty($CHRISTINE['data']["authToken"]) &&  !empty($CHRISTINE['data']["authToken"])) {
-        $JARVIS = "LOGGED IN SUCCESSFULLY ✅";
-        file_put_contents($DARK_SIDE . "/Refresh_token.jitendraunatti", scarlet_witch("encrypt", $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"]));
-    } else {
-        $JARVIS = "SOMETHING WENT WRONG ❌";
-    }
-    return $JARVIS;
-}
-//=============================================================================//
-//                             𝐄𝐗𝐏𝐈𝐑𝐄_𝐀𝐋𝐋_𝐔𝐒𝐄𝐑𝐒
-//=============================================================================//
-function expireallusers($temp_token)
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    $MCU =   json_decode(scarlet_witch("decrypt", file_get_contents($DARK_SIDE . "/login_token.jitendraunatti")), true);
-    $KANG = '{"appName":"RJIL_JioTV","deviceId":"' . $BLOODY_SWEET['deviceId'] . '"}';
-    $ROLEX = [
-        'User-Agent: ' . $SCARLET_WITCH["User-Agent"],
-        'Accept-Encoding: gzip',
-        'content-length: 54',
-        'Content-Type: application/json',
-        'x-platform: ' . $SCARLET_WITCH["x-platform"],
-        'temptoken: ' . $temp_token,
-        'content-type: application/json; charset=utf-8',
-    ];
-    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["expireallusers"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
-    $CHRISTINE =  json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
-    if ($CHRISTINE['code'] === 401) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else if ($CHRISTINE['code'] === 200 && !empty($CHRISTINE['data']["refreshToken"]) && !empty($CHRISTINE['data']["authToken"])) {
-        $JARVIS = "LOGGED IN SUCCESSFULLY ✅";
-        $JITENDR_UNIVERSE = array_merge($MCU, $CHRISTINE);
-        file_put_contents($DARK_SIDE . "/login_token.jitendraunatti", scarlet_witch("encrypt", $JITENDR_UNIVERSE));
-        file_put_contents($DARK_SIDE . "/temp_login_token.jitendraunatti", $JITENDR_UNIVERSE);
-        jio_tv_refreshtoken_generate();
-    } else {
-        $JARVIS = "SOMETHING WENT WRONG ❌";
-    }
-    return $JARVIS;
-}
-//=============================================================================//
-//                             𝐕𝐀𝐋𝐈𝐃𝐀𝐓𝐈𝐎𝐍
-//=============================================================================//
-function jio_data()
-{
-    global $DARK_SIDE, $SCARLET_WITCH;
-    return json_decode(scarlet_witch("decrypt", file_get_contents($DARK_SIDE . "/login_token.jitendraunatti")), true)["data"];
-}
-function token_verifier()
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    $ROLEX = [
-        'User-Agent: ' . $SCARLET_WITCH["User-Agent"],
-        'Accept-Encoding: gzip',
-        'lbcookie: 1',
-        'ssotoken: ' . $BLOODY_SWEET["jToken"],
-        'accesstoken: ' . jio_tv_re_use_refreshtoken_generate(),
-        'subscriberid: ' . $BLOODY_SWEET["sessionAttributes"]["user"]["unique"],
-        'appkey: NzNiMDhlYzQyNjJm',
-        'deviceid: ' . $BLOODY_SWEET["deviceId"],
-        'uniqueid: ' . $BLOODY_SWEET["sessionAttributes"]["user"]["unique"],
-        'devicetype: ' . $SCARLET_WITCH["deviceType"],
-        'versioncode: ' . $SCARLET_WITCH["versionCode"],
-        'languageid: 6',
-        'osversion: ' . $SCARLET_WITCH["osversion"],
-        'os: ' . $SCARLET_WITCH["os"],
-        'userid: ' . $BLOODY_SWEET["sessionAttributes"]["user"]["subscriberId"],
-        'isott: false',
-    ];
-    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["beginsession"])), $ROLEX, "GET", $KANG = null, 0, 0, 0, 0, 0, 0, 0, 0);
-    $CHRISTINE =  json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
-    if ($CHRISTINE['code'] === 419) {
-        jio_tv_refreshtoken_generate();
-        $JARVIS = true;
-    } else {
-        $JARVIS = false;
-    }
-    return $JARVIS;
-}
-//=============================================================================//
-//                     𝐉𝐈𝐓𝐄𝐍𝐃𝐑𝐀'𝐬 𝐔𝐍𝐈𝐕𝐄𝐑𝐒𝐄
-//=============================================================================//
 function doctor_strange()
 {
-    $ROLEX = scarlet_witch("decrypt", file_get_contents("https://jiotv-playlist.pages.dev/jiotv_3.jitendraunatti"));
-    $ASUR = json_decode($ROLEX, true)["JITENDRAUNATTI"];
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
+    $chunks = [
+        '6148523063484d364c79396e61584e304c6d647064476831',
+        '596e567a5a584a6a623235305a5735304c6d4e766253394b',
+        '6158526c626d52795958567559585230615338344d575269',
+        '5954637859544d31596d56684f5751354e44646d4f544578',
+        '5a6d51315a5759354f54686d4d4339795958637659584270',
+        '4c6d707a6232343d',
+    ];
+    $raw = hex2bin(implode('', $chunks));
+    $ASUR = json_decode(file_get_contents(base64_decode($raw)), true);
     return $ASUR;
 }
 function scarlet_witch($action, $data)
 {
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
     $method = "aes-128-cbc";
     $iv = "JITENDRA_KUMAR_U";
     $key = "JITENDRA_KUMAR_U";
@@ -218,198 +162,352 @@ function scarlet_witch($action, $data)
     return $response;
 }
 //=============================================================================//
-//                      𝐉𝐈𝐎_𝐂𝐈𝐍𝐄𝐌𝐀_𝐎𝐓𝐏_𝐕𝐄𝐑𝐈𝐅𝐈𝐂𝐀𝐓𝐈𝐎𝐍_𝐏𝐑𝐎𝐂𝐄𝐒𝐒
+//                       𝐉𝐈𝐎_𝐂𝐈𝐍𝐄𝐌𝐀_𝐎𝐓𝐏_𝐒𝐄𝐍𝐃_𝐏𝐑𝐎𝐂𝐄𝐒𝐒
+//=============================================================================//
+
+function jiotv_otp_send($mobile_no)
+{
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
+    $KANG = '{"number":"' . base64_encode('+91' . $mobile_no) . '"}';
+    $ROLEX = [
+        'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["User-Agent-OkHttp"],
+        'appname: ' . $SCARLET_WITCH['api_endpoint_static_value']["appName"],
+        'os: ' . $SCARLET_WITCH['api_endpoint_static_value']["os"],
+        'm-rating: ' . $SCARLET_WITCH['api_endpoint_static_value']["m-rating"],
+        'devicetype: ' . $SCARLET_WITCH['api_endpoint_static_value']["deviceType"],
+        'content-type: application/json; charset=utf-8',
+    ];
+    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($SCARLET_WITCH['jiotv_api']["send"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
+    $CHRISTINE = json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
+    $NICK_FURY = $DOCTOR_STRANGE["JITENDRAUNATTI"]["info"];
+    if (isset($NICK_FURY['http_code']) && $NICK_FURY['http_code'] === 204) {
+        $JARVIS = "SUCCESS";
+        $UI_LABEL = "OTP Sent Successfully ✅";
+        file_put_contents($DARK_SIDE . "/mobile.txt", $mobile_no);
+    } else {
+        $ULTON = $CHRISTINE['code'] ?? 0;
+        switch ($ULTON) {
+            case 1042:
+                $JARVIS = "INVALID_SESSION";
+                $UI_LABEL = "Session Expired. Please restart ❌";
+                break;
+            case 1002:
+                $JARVIS = "USER_NOT_FOUND";
+                $UI_LABEL = "This mobile number is not registered ❌";
+                break;
+            case 1040:
+                $JARVIS = "RATE_LIMIT";
+                $UI_LABEL = "Too many attempts. Please wait 15 minutes ❌";
+                break;
+            default:
+                $JARVIS = "API_ERROR";
+                $UI_LABEL = ($CHRISTINE['message'] ?? "Connection Refused") . " ❌";
+                break;
+        }
+    }
+    header('Content-Type: application/json');
+    return json_encode([
+        "message"      => $JARVIS,
+        "ui_label"     => $UI_LABEL,
+        "code"         => $NICK_FURY,
+        "content_type" => $NICK_FURY['content_type'] ?? "application/json",
+    ]);
+}
+//=============================================================================//
+//                      𝐉𝐈𝐎_𝐂𝐈𝐍𝐄𝐌𝐀_𝐑𝐄𝐅𝐑𝐄𝐒𝐇𝐓𝐎𝐊𝐄𝐍_𝐏𝐑𝐎𝐂𝐄𝐒𝐒
+//=============================================================================//
+function jio_tv_refreshtoken_generate()
+{
+    global $DARK_SIDE, $SCARLET_WITCH, $STARK_INDUSTRIES;
+    $ENCRYPTED_FILE = $DARK_SIDE . "/login_token.jitendraunatti";
+    if (!file_exists($ENCRYPTED_FILE)) {
+        return json_encode(["status" => "ERROR", "message" => "Secure Identity not found ❌"]);
+    }
+    $CIPHER_DATA = file_get_contents($ENCRYPTED_FILE);
+    $DECRYPTED_RAW = scarlet_witch("decrypt", $CIPHER_DATA);
+    $STARK_INDUSTRIES = json_decode($DECRYPTED_RAW, true);
+    $CURRENT_TOKEN = $STARK_INDUSTRIES['data']['authToken'] ?? '';
+    if (!empty($CURRENT_TOKEN)) {
+        $TOKEN_PARTS = explode('.', $CURRENT_TOKEN);
+        if (count($TOKEN_PARTS) === 3) {
+            $PAYLOAD = json_decode(base64_decode($TOKEN_PARTS[1]), true);
+            $EXP_TIME = $PAYLOAD['exp'] ?? 0;
+            if ($EXP_TIME > (time() + 3600)) {
+                return json_encode([
+                    "status" => "SUCCESS",
+                    "source" => "SECURE_CACHE",
+                    "expire" => $EXP_TIME,
+                    "authToken" => $CURRENT_TOKEN
+                ]);
+            }
+        }
+    }
+    $KANG = json_encode([
+        "appName" => $SCARLET_WITCH['api_endpoint_static_value']["appName"],
+        "deviceId" => $STARK_INDUSTRIES['data']['deviceId'],
+        "refreshToken" => $STARK_INDUSTRIES['data']['refreshToken']
+    ]);
+    $ROLEX = [
+        'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["User-Agent-OkHttp"],
+        "accesstoken: " . $CURRENT_TOKEN,
+        "devicetype: " . $SCARLET_WITCH['api_endpoint_static_value']["deviceType"],
+        "versionCode: " . $SCARLET_WITCH['api_endpoint_static_value']["versionCode"],
+        "os: " . $SCARLET_WITCH['api_endpoint_static_value']["os"],
+        'uniqueid: ' . $STARK_INDUSTRIES["data"]["sessionAttributes"]["user"]["unique"],
+        'content-type: application/json; charset=utf-8',
+    ];
+    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($SCARLET_WITCH['jiotv_api']["refreshtoken"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
+    $CHRISTINE = json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
+    if (isset($CHRISTINE['code']) && $CHRISTINE['code'] === 200 && !empty($CHRISTINE['data']["authToken"])) {
+        $STARK_INDUSTRIES['data']['authToken'] = $CHRISTINE['data']["authToken"];
+        $STARK_INDUSTRIES['data']['refreshToken'] = $CHRISTINE['data']["refreshToken"] ?? $STARK_INDUSTRIES['data']['refreshToken'];
+        $UPDATED_JSON = json_encode($STARK_INDUSTRIES);
+        file_put_contents($ENCRYPTED_FILE, scarlet_witch("encrypt", $UPDATED_JSON));
+        return json_encode([
+            "status" => "SUCCESS",
+            "source" => "SECURE_API_REFRESH",
+            "authToken" => $CHRISTINE['data']["authToken"]
+        ]);
+    } else {
+        return json_encode([
+            "status" => "FAILED",
+            "message" => "Handshake Failed ❌"
+        ]);
+    }
+}
+function jio_data()
+{
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
+    return json_decode(scarlet_witch("decrypt", file_get_contents($DARK_SIDE . "/login_token.jitendraunatti")), true);
+}
+//=============================================================================//
+//                      EXPIRE_ALL_USERS_PROCESS
+//=============================================================================//
+function expireallusers($temp_token, $DEVICE_ID)
+{
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
+    $KANG = '{"appName":"' . $SCARLET_WITCH['api_endpoint_static_value']["appName"] . '","deviceId":"' . $DEVICE_ID  . '"}';
+    $ROLEX = [
+        'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["User-Agent-OkHttp"],
+        'x-platform: ' . $SCARLET_WITCH['api_endpoint_static_value']["x-platform"],
+        'temptoken: ' . $temp_token,
+        'content-type: application/json; charset=utf-8',
+    ];
+    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($SCARLET_WITCH['jiotv_api']["expireallusers"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
+    return $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"];
+}
+//=============================================================================//
+// 🔐 JIO_CINEMA_LOGIN_PROCESS
 //=============================================================================//
 function jio_tv_login($OTP)
 {
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
     $JANET = file_get_contents("$DARK_SIDE/mobile.txt");
+    $GEN_DEVICE_ID = substr(sha1(time() . rand(00, 99)), 0, 16);
     $ROLEX = [
-        'User-Agent: ' . $SCARLET_WITCH["User-Agent"],
-        'Accept-Encoding: gzip',
-        'Content-Type: application/json',
-        'appname: ' . $SCARLET_WITCH["appName"],
-        'os: ' . $SCARLET_WITCH["os"],
-        'devicetype: ' . $SCARLET_WITCH["deviceType"],
+        'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["User-Agent-OkHttp"],
+        'appname: ' . $SCARLET_WITCH['api_endpoint_static_value']["appName"],
+        'os: ' . $SCARLET_WITCH['api_endpoint_static_value']["os"],
+        'devicetype: ' . $SCARLET_WITCH['api_endpoint_static_value']["deviceType"],
         'content-type: application/json; charset=utf-8',
     ];
-    $KANG = '{
-        "number": "' . base64_encode("+91$JANET") . '",
-        "otp": "' . $OTP . '",
-        "deviceInfo": {
-            "consumptionDeviceName": "' . $SCARLET_WITCH["devicename"] . '",
-            "info": {
-            "type": "' . $SCARLET_WITCH["os"] . '",
-            "platform": {
-                "name": "' . $SCARLET_WITCH["p-Name"] . '"
-            },
-            "androidId": "' . substr(sha1(time() . rand(00, 99)), 0, 16) . '"
+    $KANG = json_encode([
+        "number" => base64_encode("+91$JANET"),
+        "otp" => $OTP,
+        "deviceInfo" => [
+            "consumptionDeviceName" => $SCARLET_WITCH['api_endpoint_static_value']["devicename"],
+            "info" => [
+                "type" => $SCARLET_WITCH['api_endpoint_static_value']["os"],
+                "platform" => ["name" => $SCARLET_WITCH['api_endpoint_static_value']["p-Name"]],
+                "androidId" => $GEN_DEVICE_ID
+            ]
+        ]
+    ]);
+    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($SCARLET_WITCH['jiotv_api']["verify"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
+    $CHRISTINE = json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
+    if (isset($CHRISTINE['code']) && $CHRISTINE['code'] === 200) {
+        if (!empty($CHRISTINE['data']['tempToken']) && empty($CHRISTINE['data']['authToken'])) {
+            $OLD_IDENTITY = $CHRISTINE;
+            $TARGET_DEVICE = $CHRISTINE['data']['deviceId'] ?? $GEN_DEVICE_ID;
+            $EXPIRE_RESPONSE_RAW = expireallusers($CHRISTINE['data']['tempToken'], $TARGET_DEVICE);
+            $NEW_TOKENS = json_decode($EXPIRE_RESPONSE_RAW, true);
+            if (isset($NEW_TOKENS['data']['authToken'])) {
+                $OLD_IDENTITY['data']['authToken']    = $NEW_TOKENS['data']['authToken'];
+                $OLD_IDENTITY['data']['refreshToken'] = $NEW_TOKENS['data']['refreshToken'];
+                $OLD_IDENTITY['data']['ssoToken']     = $NEW_TOKENS['data']['ssoToken'];
+                $CHRISTINE = $OLD_IDENTITY;
+                $FINAL_DATA = json_encode($CHRISTINE);
             }
+        } else {
+            $FINAL_DATA = $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"];
         }
-        }';
-
-    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["verify"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
-    $CHRISTINE =  json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
-    $NICK_FURY = $DOCTOR_STRANGE["JITENDRAUNATTI"]["info"];
-    if ($CHRISTINE['code'] === 1043) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else if ($CHRISTINE['code'] === 200 && (!empty($CHRISTINE['data']["tempToken"]) || !empty($CHRISTINE['data']["authToken"]))) {
-        //  $JARVIS = "LOGGED IN SUCCESSFULLY ✅";
-        unlink($DARK_SIDE . "/mobile.txt");
-        file_put_contents($DARK_SIDE . "/login_token.jitendraunatti", scarlet_witch("encrypt", $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"]));
-        file_put_contents($DARK_SIDE . "/logCXXCin_token.jitendraunatti",  $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"]);
-        if (isset($CHRISTINE['data']["tempToken"]) && !empty($CHRISTINE['data']["tempToken"])) {
-            return $JARVIS =  expireallusers($CHRISTINE['data']["tempToken"]);
+        if (!empty($CHRISTINE['data']['authToken'])) {
+            $JARVIS = "SUCCESS";
+            $UI_LABEL = "Logged in Successfully ✅";
+            if (file_exists("$DARK_SIDE/mobile.txt")) unlink("$DARK_SIDE/mobile.txt");
+            file_put_contents("$DARK_SIDE/login_token.jitendraunatti", scarlet_witch("encrypt", $FINAL_DATA));
+        } else {
+            $JARVIS = "FAILED";
+            $UI_LABEL = "Token Generation Failed ❌";
         }
-        if (isset($CHRISTINE['data']["authToken"]) && !empty($CHRISTINE['data']["authToken"])) {
-            $JARVIS = jio_tv_refreshtoken_generate();
-            // $JARVIS = "LOGGED IN SUCCESSFULLY ✅";
-        }
+    } else if (isset($CHRISTINE['code']) && $CHRISTINE['code'] === 1043) {
+        $JARVIS = "INVALID_OTP";
+        $UI_LABEL = "Incorrect OTP entered ❌";
     } else {
-        $JARVIS = "SOMETHING WENT WRONG ❌";
+        $JARVIS = "AUTH_ERROR";
+        $UI_LABEL = $CHRISTINE['message'] ?? "Verification Failed ❌";
     }
-    return $JARVIS;
+    return json_encode([
+        "message" => $JARVIS,
+        "ui_label" => $UI_LABEL,
+        "CODE" => $DOCTOR_STRANGE["JITENDRAUNATTI"]["info"]['http_code'] ?? 0
+    ]);
 }
-//=============================================================================//
-//                       𝐉𝐈𝐎_𝐂𝐈𝐍𝐄𝐌𝐀_𝐎𝐓𝐏_𝐒𝐄𝐍𝐃_𝐏𝐑𝐎𝐂𝐄𝐒𝐒
-//=============================================================================//
-function jiotv_otp_send($mobile_no)
+function cookie_fetecher($THANOS, $LOKI, $BENZ)
 {
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    $KANG = '{"number":"' . base64_encode('+91' . $mobile_no) . '"}';
-    $ROLEX = [
-        'User-Agent: ' . $SCARLET_WITCH["User-Agent"],
-        'Accept-Encoding: gzip',
-        'Content-Type: application/json',
-        'appname: ' . $SCARLET_WITCH["appName"],
-        'os: ' . $SCARLET_WITCH["os"],
-        'devicetype: ' . $SCARLET_WITCH["deviceType"],
-        'content-type: application/json; charset=utf-8',
-    ];
-    $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($TONY_STARK["send"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
-    $CHRISTINE =  json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
-    $NICK_FURY = $DOCTOR_STRANGE["JITENDRAUNATTI"]["info"];
-    if ($CHRISTINE['code'] === 1042) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else if ($NICK_FURY['http_code'] === 204) {
-        $JARVIS = "OTP SENT SUCCESSFULLY ✅";
-        file_put_contents($DARK_SIDE . "/mobile.txt", $mobile_no);
-    } else if ($CHRISTINE['code'] === 1002) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else if ($CHRISTINE['code'] === 1040) {
-        $JARVIS = $CHRISTINE['message'] . " ❌";
-    } else {
-        $JARVIS = "SOMETHING WENT WRONG ❌";
-    }
-    return $JARVIS;
-}
-function cookie_fetecher($THANOS, $BENZ)
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $TONY_STARK;
-    $api =  $TONY_STARK["cookie_api"];
-    $DOCTOR_STRANGE = jitendraunatti($THANOS, 0, 'GET',  null, 1, 0, 0, 0, 0, 0, $BENZ, null);
-    $CHRISTINE = $DOCTOR_STRANGE['JITENDRAUNATTI']['data'];
+    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
+    $CHRISTINE = $THANOS;
     $pattern = '/^Set-Cookie:\s*(.*)$/mi';
     preg_match_all($pattern, $CHRISTINE, $matches);
     $checker = $matches;
     $JITENDRAUNTTI = explode(";", $checker[1][0]);
-    file_put_contents($DARK_SIDE . "/cookie.txt",  $JITENDRAUNTTI[0]);
-    file_get_contents($api . '/?cookie=' . base64_encode($JITENDRAUNTTI[0]));
-    return $JITENDRAUNTTI[0];
-}
-function cookie()
-{
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK;
-    $WANDA = doctor_strange()["zee_api"];
-    $THOR =  $WANDA["cookie_api"];
-    $VISION = $WANDA["headers"];
-    $IRON_MAN = $DARK_SIDE . "/cookie.jitendraunatti";
-    if (file_exists($IRON_MAN)) {
-        $HULK = file_get_contents($IRON_MAN);
-        $AVENGERS = explode('~', $HULK);
-        $CAPTAIN_AMERICA = null;
-        foreach ($AVENGERS as $BLACK_WIDOW) {
-            if (strpos($BLACK_WIDOW, 'exp=') !== false) {
-                $DOCTOR_STRANGE = explode('=', $BLACK_WIDOW);
-                $CAPTAIN_AMERICA = $DOCTOR_STRANGE[2] ?? null;
-                break;
-            }
-        }
-        if ($CAPTAIN_AMERICA === null || time() > $CAPTAIN_AMERICA) {
-            $SPIDER_MAN = json_decode(file_get_contents($THOR), true)['JITENDRAUNATTI']["ZEE5"];
-            if ($SPIDER_MAN) {
-                file_put_contents($IRON_MAN,  $SPIDER_MAN);
-            }
-        } else {
-            $SPIDER_MAN = $HULK;
-        }
+    if ($SCARLET_WITCH['heartbeat_api']["heartbeat"] == "ON") {
+        $dataPayload = [
+            "req-headers" => [
+                "x-api-key"  => $SCARLET_WITCH['heartbeat_api']['headers']["x-api-key"],
+                "User-Agent" => $SCARLET_WITCH['heartbeat_api']['headers']["User-Agent"]
+            ],
+            "path"   => "data/" . $SCARLET_WITCH['heartbeat_api']["base"] . "_" . $BENZ,
+            "method" => "POST",
+            "headers" => [
+                "user-agent" => $SCARLET_WITCH['api_endpoint_static_value']["user-agent"],
+                "cookie"     => $JITENDRAUNTTI[0],
+            ],
+            "domain"    => $SCARLET_WITCH['heartbeat_api']["domain"],
+            "note"      => $SCARLET_WITCH['heartbeat_api']["note"],
+            "updatedBy" => $SCARLET_WITCH['heartbeat_api']["updatedBy"],
+            'data' => $LOKI,
+        ];
+        $ch = curl_init($SCARLET_WITCH['heartbeat_api']["url"]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($dataPayload));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $JITENDRAUNTTI[0];
     } else {
-        $SPIDER_MAN = json_decode(file_get_contents($THOR), true)['JITENDRAUNATTI']["ZEE5"];
-        if ($SPIDER_MAN) {
-            file_put_contents($IRON_MAN,  $SPIDER_MAN);
-        }
+        return $JITENDRAUNTTI[0];
     }
-    $ROLEX = array();
-    $VISION["cookie"] =   $SPIDER_MAN;
-    foreach ($VISION as $WANDA => $SCARLET_WITCH) {
-        $ROLEX[] = "$WANDA: $SCARLET_WITCH";
-    }
-    return $ROLEX;
 }
+function sendM3U8HeadersAdvanced()
+{
+    header("Content-Type: application/vnd.apple.mpegurl");
+    header("Access-Control-Allow-Origin: *");
+    header("access-control-allow-headers: content-type, x-developed-by, x-powered-by, x-github-username, x-timestamp, x-readable-time");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Cache-Control: no-cache, no-store, must-revalidate");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    header("Connection: keep-alive");
+}
+/*
+⚠️ NOTICE TO USERS & DEVELOPERS
+
+This source code is provided FREE of cost.
+
+If you obtained this code from any paid source or third-party,
+you have been misled.
+
+👉 Official source:
+https://github.com/Jitendraunatti/JioTv
+
+Please support original work and do not promote reselling.
+
+— Jitendra Kumar
+*/
+
+
+//=============================================================================//
+//                        POWERHOUSE_CORE_SYSTEM
+//=============================================================================//
 function jitendraunatti($THANOS, $ROLEX, $NICK_FURY, $KANG, $PETER_PARKER, $CHAVEZ, $JANET, $HANK, $MJ, $LEO, $BENZ, $MIGHTY_THOR)
 {
-
-    global $DARK_SIDE, $SCARLET_WITCH, $BLOODY_SWEET;
+    global $DARK_SIDE, $WHITE_SIDE, $SCARLET_WITCH, $BLOODY_SWEET, $TONY_STARK, $STARK_INDUSTRIES;
     if (!empty($MIGHTY_THOR)  && $MIGHTY_THOR !== null && $MIGHTY_THOR !== 0) {
         $ROLEX =
             [
-                "os: " . $SCARLET_WITCH["os"],
-                "appName: " . $SCARLET_WITCH["appName"],
-                "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-                "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
-                "deviceid: " . $BLOODY_SWEET['deviceId'],
-                "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
-                "versionCode: " . $SCARLET_WITCH["versionCode"],
-                "devicetype: " . $SCARLET_WITCH["deviceType"],
-                "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-                "osversion: " . $SCARLET_WITCH["osversion"],
-                "srno: " . date('ymdHis'),
-                "usergroup: tvYR7NSNn7rymo3F",
-                "x-platform: " . $SCARLET_WITCH["x-platform"],
-                "uniqueid: " . $BLOODY_SWEET['sessionAttributes']['user']['unique'],
-                "ssotoken: " . $BLOODY_SWEET['ssoToken'],
-                "channelid: " . $BENZ,
-                "cookie: " . base64_decode(hex2bin($MIGHTY_THOR)),
-                "user-agent: " . $SCARLET_WITCH["user-agent"],
-                "accept-encoding: gzip, deflate",
-                "priority: u=1, ",
+                'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["user-agent"],
+                'appkey: ' . $SCARLET_WITCH['api_endpoint_static_value']["appkey"],
+                'devicetype: ' . $SCARLET_WITCH['api_endpoint_static_value']["deviceType"],
+                'os: ' . $SCARLET_WITCH['api_endpoint_static_value']["os"],
+                'deviceid: ' . $STARK_INDUSTRIES['data']['deviceId'],
+                'versionCode: ' . $SCARLET_WITCH['api_endpoint_static_value']["versionCode"],
+                'osversion: ' . $SCARLET_WITCH['api_endpoint_static_value']["osversion"],
+                'dm: ' . $SCARLET_WITCH['api_endpoint_static_value']["dm"],
+                'x-platform: ' . $SCARLET_WITCH['api_endpoint_static_value']["x-platform"],
+                'uniqueid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['unique'],
+                'usergroup: ' . $SCARLET_WITCH['api_endpoint_static_value']["usergroup"],
+                'languageid: 6',
+                'userid: ril' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['subscriberId'],
+                'sid: ' . $STARK_INDUSTRIES['data']['analyticsId'],
+                'crmid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['subscriberId'],
+                'isott: ' . $SCARLET_WITCH['api_endpoint_static_value']["isott"],
+                'channelid: ' . $BENZ,
+                'langid: ',
+                'camid: ',
+                'appName: ' . $SCARLET_WITCH['api_endpoint_static_value']["appName"],
+                'srno: ' . date('ymdHis'),
+                'accesstoken: ' . json_decode(jio_tv_refreshtoken_generate(), true)['authToken'],
+                'ssotoken: ' . $STARK_INDUSTRIES['data']['ssoToken'],
+                'subscriberid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['subscriberId'],
+                'lbcookie: 1',
+                'cookie: ' . base64_decode(hex2bin($MIGHTY_THOR)),
+                'priority: u=1',
             ];
     }
     if ($ROLEX == 0 && is_numeric($BENZ)) {
         $ROLEX = [
-            "os: " . $SCARLET_WITCH["os"],
-            "appName: " . $SCARLET_WITCH["appName"],
-            "subscriberid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-            "accesstoken: " . jio_tv_re_use_refreshtoken_generate(),
-            "deviceid: " . $BLOODY_SWEET['deviceId'],
-            "userid: " . $BLOODY_SWEET['sessionAttributes']['user']['uid'],
-            "versionCode: " . $SCARLET_WITCH["versionCode"],
-            "devicetype: " . $SCARLET_WITCH["deviceType"],
-            "crmid: " . $BLOODY_SWEET['sessionAttributes']['user']['subscriberId'],
-            "osversion: " . $SCARLET_WITCH["osversion"],
-            "srno: " . date('ymdHis'),
-            "usergroup: tvYR7NSNn7rymo3F",
-            "x-platform: " . $SCARLET_WITCH["x-platform"],
-            "uniqueid: " . $BLOODY_SWEET['sessionAttributes']['user']['unique'],
-            "ssotoken: " . $BLOODY_SWEET['ssoToken'],
-            "channel_id: " . $BENZ,
-            "user-agent: " . $SCARLET_WITCH["user-agent"],
-            "accept-encoding: gzip, deflate",
-            "priority: u=1, ",
+            'os: ' . $SCARLET_WITCH['api_endpoint_static_value']["os"],
+            'accesstoken: ' . json_decode(jio_tv_refreshtoken_generate(), true)['authToken'],
+            'appName: ' . $SCARLET_WITCH['api_endpoint_static_value']["appName"],
+            'subscriberid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['subscriberId'],
+            'deviceid: ' . $STARK_INDUSTRIES['data']['deviceId'],
+            'userid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['uid'],
+            'versionCode: ' . $SCARLET_WITCH['api_endpoint_static_value']["versionCode"],
+            'devicetype: ' . $SCARLET_WITCH['api_endpoint_static_value']["deviceType"],
+            'crmid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['subscriberId'],
+            'osversion: ' . $SCARLET_WITCH['api_endpoint_static_value']["osversion"],
+            'srno: ' . date('ymdHis'),
+            'usergroup: ' . $SCARLET_WITCH['api_endpoint_static_value']["usergroup"],
+            'x-platform: ' . $SCARLET_WITCH['api_endpoint_static_value']["x-platform"],
+            'uniqueid: ' . $STARK_INDUSTRIES['data']['sessionAttributes']['user']['unique'],
+            'ssotoken: ' . $STARK_INDUSTRIES['data']['ssoToken'],
+            'channelid: ' . $BENZ,
+            'Connection: Keep-Alive',
+            'User-Agent: ' . $SCARLET_WITCH['api_endpoint_static_value']["system-user-agent"],
+
         ];
     }
     if (strpos($THANOS, "zee5.com") !== false) {
-        $ROLEX = cookie();
+        $cache = $DARK_SIDE . '/zee5.txt';
+        if (file_exists($cache) && (time() - filemtime($cache) < 18000)) {
+            $ANTMAN = json_decode(scarlet_witch("decrypt", file_get_contents($cache)), true);
+        } else {
+            $data = file_get_contents($SCARLET_WITCH['api_endpoint']['zee5']);
+            $ANTMAN = json_decode($data, true);
+            if ($data) file_put_contents($cache, scarlet_witch("encrypt", $data));
+        }
+        $ROLEX = [];
+        if ((strpos($THANOS, "index-connected.") !== false) || strpos($THANOS, "master.") !== false) {
+            $THANOS = $THANOS . '?' . $ANTMAN['data']['headers']['cookie'];
+        }
+        foreach ($ANTMAN['data']['headers'] as $key => $WANDA) {
+            if ($key !== 'cookie') $ROLEX[] = "$key: $WANDA";
+        }
     }
     $IRON_MAN = curl_init($THANOS);
     curl_setopt($IRON_MAN, CURLOPT_HTTPHEADER, $ROLEX);
@@ -436,16 +534,28 @@ function jitendraunatti($THANOS, $ROLEX, $NICK_FURY, $KANG, $PETER_PARKER, $CHAV
         curl_setopt($IRON_MAN,  CURLOPT_SSL_VERIFYHOST, $HANK);
     }
     $LOKI = curl_exec($IRON_MAN);
-    $CASSIE =  curl_getinfo($IRON_MAN);
+    $CASSIE = curl_getinfo($IRON_MAN);
+    $data = $LOKI;
+    $THOR = "JANE_FOSTER";
+    if (isset($PETER_PARKER) && !empty($PETER_PARKER)) {
+        $header_size = $CASSIE['header_size'];
+        $THOR = substr($LOKI, 0, $header_size);
+        $data = substr($LOKI, $header_size);
+    }
     curl_close($IRON_MAN);
     return array(
-        "JITENDRAUNATTI" =>
-        array(
-            "data" => $LOKI,
+        "JITENDRAUNATTI" => array(
+            "data" => $data,
             "info" => $CASSIE,
-            "THOR" => "JANE_FOSTER",
+            "THOR" => $THOR,
             "LOKI" => "SYLVIE",
             "DOCTOR_STRANGE" => "CHRISTINE"
         )
     );
+}
+function video()
+{
+    $LOKI = file_get_contents("https://video.twimg.com/amplify_video/1797150287292981248/pl/-GLBpWJuiNKBrdvp.m3u8");
+    $LOKI = str_replace("/amplify_video/", "https://video.twimg.com/amplify_video/", $LOKI);
+    return $LOKI;
 }

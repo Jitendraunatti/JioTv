@@ -1,42 +1,51 @@
 <?php
-include('jitendraunatti.php');
+require_once 'jitendraunatti.php';
 //=============================================================================//
 //                      अगर आगे बढ़ाना है,
 //                     AGAR AAGE BADHAANA HAI,
 //=============================================================================//
-if (isset($_REQUEST['wanda']) && isset($_REQUEST['thor']) && isset($_REQUEST['jane_foster'])) {
-    $DOCTOR_STRANGE = jitendraunatti($_REQUEST['jane_foster'] . str_replace(".jitendraunatti", ".m3u8", $_REQUEST['wanda']), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-    if ($SCARLET_WITCH['proxy'] === 'ON') {
-        echo str_replace([$_REQUEST['groot'] . '-audio', ',URI="https://tv.media.jio.com/fallback', ".ts"], ['wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&ts=' . $_REQUEST['jane_foster'] . $_REQUEST['groot'] . '-audio', ',URI="wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&pkey=https://tv.media.jio.com/fallback', ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
-    } else {
-        echo str_replace([$_REQUEST['groot'] . '-audio', ',URI="https://tv.media.jio.com/fallback', '.ts'], [$_REQUEST['jane_foster'] . $_REQUEST['groot'] . '-audio', ',URI="wanda.php?thor=' . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&pkey=https://tv.media.jio.com/fallback', '.ts?' . base64_decode(hex2bin($_REQUEST['thor']))], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+$token = $SCARLET_WITCH['JITENDRA_UNIVERSE']['token'];
+sendM3U8HeadersAdvanced();
+if (isset($_REQUEST['thor']) && isset($_REQUEST['jane_foster']) && $_REQUEST['hls'] && $_REQUEST['token']) {
+    header("Content-Type: application/vnd.apple.mpegurl");
+    $DOCTOR_STRANGE = jitendraunatti(str_replace(".jitendraunatti", ".m3u8",  scarlet_witch("decrypt", $_REQUEST['hls'])), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
+    $JPD = explode("\n", $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+    $VISION = str_replace(basename(scarlet_witch("decrypt", $_REQUEST['hls'])), '', scarlet_witch("decrypt", $_REQUEST['hls']));
+    $CASSIE = '';
+    foreach ($JPD as $ROLEX) {
+        if (empty($ROLEX)) continue;
+        if (strpos($ROLEX, 'URI="') !== false) {
+            $CASSIE .= str_replace('URI="', 'URI="wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&id=' . $_REQUEST['id'] . '&jane_foster=' . $VISION . '&thor=' . $_REQUEST['thor'] . '&pkey=', $ROLEX) . "\n";
+        } elseif (strpos($ROLEX, '.ts') !== false && strpos($ROLEX, '#') === false) {
+            $CASSIE .= 'wanda.php?token=' . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . '&thor=' . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&jane_foster=' . scarlet_witch("encrypt", $VISION) . '&marvel=' . scarlet_witch("encrypt", $VISION . $ROLEX) . "\n";
+        } else {
+            $CASSIE .= $ROLEX . "\n";
+        }
     }
-} elseif (isset($_REQUEST['hls']) && isset($_REQUEST['thor'])) {
-    $DOCTOR_STRANGE = jitendraunatti($_REQUEST['jane_foster'] . str_replace(".jitendraunatti", ".m3u8", $_REQUEST['hls']), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-    if ($SCARLET_WITCH['proxy'] === 'ON') {
-        echo str_replace(["67597C480000", ".ts"], ["wanda.php?token=" . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . "&thor=" . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&ts=' . $_REQUEST['jane_foster'] . '67597C480000', ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
-    } else {
-        echo str_replace(["67597C480000", ".ts?"], [$_REQUEST['jane_foster'] . '67597C480000', ".ts?" . base64_decode(hex2bin($_REQUEST['thor'])) . '&'], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
-    }
-} elseif (isset($_REQUEST['marvel']) && isset($_REQUEST['thor'])) {
-    $DOCTOR_STRANGE = jitendraunatti($_REQUEST['jane_foster'] . str_replace(".jitendraunatti", ".m3u8", $_REQUEST['marvel']), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-    if ($SCARLET_WITCH['proxy'] === 'ON') {
-        echo str_replace([$_REQUEST['groot'], ".ts"], ["wanda.php?token=" . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . "&thor=" . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&ts=' . $_REQUEST['jane_foster'] . $_REQUEST['groot'], ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
-    } else {
-        echo str_replace([$_REQUEST['groot'], ".ts"], [$_REQUEST['jane_foster'] . $_REQUEST['groot'], ".ts?" . base64_decode(hex2bin($_REQUEST['thor']))], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
-    }
-} else if (!empty($_REQUEST['pkey']) || (!empty($_REQUEST['ts'])  && $_REQUEST["token"] === base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")))) {
-    if (!empty($_REQUEST['pkey'])) {
-        $DOCTOR_STRANGE = jitendraunatti($_REQUEST['pkey'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-        echo $DOCTOR_STRANGE['JITENDRAUNATTI']['data'];
-    }
-    if (!empty($_REQUEST['ts']) && $_REQUEST["token"] === base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d"))) {
-        $DOCTOR_STRANGE = jitendraunatti(str_replace(".jitendraunatti", ".ts", $_REQUEST['ts']), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-        echo $DOCTOR_STRANGE['JITENDRAUNATTI']['data'];
-    }
-} elseif (isset($_REQUEST['sony']) && isset($_REQUEST['thor'])) {
-    $DOCTOR_STRANGE = jitendraunatti($_REQUEST['jane_foster'] . str_replace(".jitendraunatti", ".m3u8", $_REQUEST['sony']), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
-    echo str_replace(["segment", ".ts"], ["wanda.php?token=" . base64_decode(hex2bin("536b6c5552553545556b46665331564e5156493d")) . "&thor=" . $_REQUEST['thor'] . '&id=' . $_REQUEST['id'] . '&ts=' . str_replace(basename($_REQUEST['jane_foster'] . $_REQUEST['sony']), "", $_REQUEST['jane_foster'] . $_REQUEST['sony']) . 'segment', ".jitendraunatti"], $DOCTOR_STRANGE['JITENDRAUNATTI']['data']);
+    /*
+        ⚠️ NOTICE TO USERS & DEVELOPERS
+
+        This source code is provided FREE of cost.
+
+        If you obtained this code from any paid source or third-party,
+        you have been misled.
+
+        👉 Official source:
+        https://github.com/Jitendraunatti/JioTv
+
+        Please support original work and do not promote reselling.
+
+        — Jitendra Kumar
+        */
+
+    exit(trim(str_replace(["#EXTM3U", ".ts"], ["#EXTM3U\n#DEVELOPED_BY_{$SCARLET_WITCH['JITENDRA_UNIVERSE']["x-developed-by"]}\n#AUTHOR-{$SCARLET_WITCH['JITENDRA_UNIVERSE']["token"]}", ".jitendraunatti"], $CASSIE)));
+} elseif (isset($_REQUEST['thor']) && isset($_REQUEST['jane_foster']) && $_REQUEST['pkey'] && $_REQUEST['token']) {
+    $DOCTOR_STRANGE = jitendraunatti($_REQUEST['pkey'], 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
+    echo $DOCTOR_STRANGE['JITENDRAUNATTI']['data'];
+} elseif (isset($_REQUEST['thor']) && isset($_REQUEST['jane_foster']) && $_REQUEST['marvel'] && $_REQUEST['token']) {
+    header("Content-Type: video/mp2t");
+    $DOCTOR_STRANGE = jitendraunatti(str_replace(".jitendraunatti", ".ts", scarlet_witch("decrypt", $_REQUEST['marvel'])), 0, 'GET',  null, 0, 0, 0, 0, 0, 0, $_REQUEST['id'], $_REQUEST['thor']);
+    echo $DOCTOR_STRANGE['JITENDRAUNATTI']['data'];
 } else {
     echo video();
     echo "#I AM IN ELSE PART";
