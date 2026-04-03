@@ -43,7 +43,7 @@ https://www.apachefriends.org/download.html
 
 ```
 
-http://localhost:8080/JioTv/
+http://localhost:8000/JioTv/
 
 ```
 
@@ -196,7 +196,7 @@ e.g. Hindi,Tamil,Kannada,Odia ...
 
 ```
 
-http://localhost:8080/JioTv/playlist.php
+http://localhost:8000/JioTv/playlist.php
 
 ```
 
