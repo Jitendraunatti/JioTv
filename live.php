@@ -58,7 +58,7 @@ if (@strlen($id) <= 4 && is_numeric($id) && $token  === base64_decode(hex2bin("5
         $CHRISTINE = json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
 
         if (isset($CHRISTINE['code']) && $CHRISTINE['code'] == 200) {
-            if (!is_dir($cache_file)) mkdir($cache_file, 0777, true);
+            // if (!is_dir($cache_file)) mkdir($cache_file, 0777, true);
             file_put_contents($cache_file, scarlet_witch("encrypt", $DOCTOR_STRANGE["JITENDRAUNATTI"]["data"]));
         }
     }
