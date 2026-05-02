@@ -258,6 +258,21 @@ function jio_tv_refreshtoken_generate()
     ];
     $DOCTOR_STRANGE = jitendraunatti(base64_decode(hex2bin($SCARLET_WITCH['jiotv_api']["refreshtoken"])), $ROLEX, "POST", $KANG, 0, 0, 0, 0, 0, 0, 0, 0);
     $CHRISTINE = json_decode($DOCTOR_STRANGE["JITENDRAUNATTI"]["data"], true);
+    if (isset($CHRISTINE['data']['device_limit_exceeded']) && !empty($CHRISTINE['data']['tempToken'])) {
+        $EXPIRE_RESPONSE_RAW = expireallusers($CHRISTINE['data']['tempToken'], $STARK_INDUSTRIES['data']['deviceId']);
+        $NEW_TOKENS = json_decode($EXPIRE_RESPONSE_RAW, true);
+        if (isset($NEW_TOKENS['data']['authToken'])) {
+            $STARK_INDUSTRIES['data']['authToken']    = $NEW_TOKENS['data']['authToken'];
+            $STARK_INDUSTRIES['data']['refreshToken'] = $NEW_TOKENS['data']['refreshToken'] ?? $STARK_INDUSTRIES['data']['refreshToken'];
+            $STARK_INDUSTRIES['data']['ssoToken']     = $NEW_TOKENS['data']['ssoToken'] ?? ($STARK_INDUSTRIES['data']['ssoToken'] ?? '');
+            file_put_contents($ENCRYPTED_FILE, scarlet_witch("encrypt", json_encode($STARK_INDUSTRIES)));
+            return json_encode([
+                "status" => "SUCCESS",
+                "source" => "DEVICE_LIMIT_CLEARED",
+                "authToken" => $STARK_INDUSTRIES['data']['authToken']
+            ]);
+        }
+    }
     if (isset($CHRISTINE['code']) && $CHRISTINE['code'] === 200 && !empty($CHRISTINE['data']["authToken"])) {
         $STARK_INDUSTRIES['data']['authToken'] = $CHRISTINE['data']["authToken"];
         $STARK_INDUSTRIES['data']['refreshToken'] = $CHRISTINE['data']["refreshToken"] ?? $STARK_INDUSTRIES['data']['refreshToken'];
@@ -269,6 +284,7 @@ function jio_tv_refreshtoken_generate()
             "authToken" => $CHRISTINE['data']["authToken"]
         ]);
     } else {
+        @unlink($ENCRYPTED_FILE);
         return json_encode([
             "status" => "FAILED",
             "message" => "Handshake Failed ❌"
